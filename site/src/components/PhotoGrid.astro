@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  photos: CollectionEntry<'photos'>[];
+  columns?: 2 | 3 | 4;
+}
+
+const { photos, columns = 4 } = Astro.props;
+
+const gridClass = `grid-photos grid-photos--${columns}`;
+---
+
+<div class={gridClass}>
+  {photos.map((photo) => (
+    <figure class="photo-card" data-aspect={photo.data.aspect}>
+      <img 
+        src={photo.data.image} 
+        alt={photo.data.title}
+        loading="lazy"
+      />
+      {photo.data.title && (
+        <figcaption class="photo-card-caption">
+          {photo.data.title}
+          {photo.data.location && <span> · {photo.data.location}</span>}
+        </figcaption>
+      )}
+    </figure>
+  ))}
+</div>
+
+<style>
+  .grid-photos--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-photos--3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 48rem) {
+    .grid-photos--3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .photo-card[data-aspect="portrait"] {
+    aspect-ratio: 3/4;
+  }
+  
+  .photo-card[data-aspect="square"] {
+    aspect-ratio: 1/1;
+  }
+</style>

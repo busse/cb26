@@ -1,0 +1,167 @@
+cv:
+  name: Chris Busse
+  label: Chief AI Officer & Technology Leader
+  email: chris@chrisbusse.com
+  location: Richmond, VA
+  image: ""
+  summary: >
+    Technology leader with 25+ years of experience specializing in APIs, enterprise modernization, 
+    and AI transformation. International speaker at SXSW, Nordic APIs, Twilio SIGNAL, and APIStrat. 
+    Founded API Craft RVA and launched the first public API platform for a North American bank.
+
+  social_networks:
+    - network: X
+      username: busse
+    - network: GitHub
+      username: busse
+    - network: LinkedIn
+      username: chrisbusse
+
+  address:
+    city: Richmond
+    region: Virginia
+    countryCode: US
+
+  sections:
+    Experience:
+      - company: SingleStone
+        position: Chief AI Officer
+        location: Richmond, VA
+        url: https://www.singlestone.com
+        start_date: 2024
+        end_date: Present
+        summary: Leading AI strategy and implementation for enterprise clients.
+        highlights:
+          - Architecture modernization using domain-driven design
+          - AI transformation advisory and strategy
+          - Enterprise AI integration patterns
+
+      - company: Eszett
+        position: Founder & Principal
+        location: Richmond, VA
+        start_date: 2024
+        end_date: Present
+        summary: AI transformation consulting and advisory services.
+        highlights:
+          - AI strategy development for enterprise clients
+          - Technology leadership consulting
+
+      - company: Terazo
+        position: Chief Digital Officer & VP of Delivery
+        location: Richmond, VA
+        url: https://terazo.com
+        start_date: 2018
+        end_date: 2024
+        summary: Led digital transformation initiatives and Twilio partnership.
+        highlights:
+          - Twilio SIGNAL speaker (2020, 2021, 2023)
+          - Twilio SKO 2024 presenter
+          - Built Twilio Flex contact center solutions for enterprise clients
+          - Established Terazo as a premier Twilio partner
+
+      - company: APIvista
+        position: CTO & Co-Founder
+        location: Richmond, VA
+        start_date: 2016
+        end_date: 2018
+        summary: API strategy consulting helping clients design, publish, and support APIs.
+        highlights:
+          - Nordic APIs Platform Summit keynote (Stockholm, 2018)
+          - APIStrat 2017 speaker (Portland)
+          - Austin API Summit 2018 speaker
+          - Contract-first API development methodology
+
+      - company: Capital One
+        position: Senior Manager, Developer Marketing & API Consumer Services
+        location: Richmond, VA
+        start_date: 2014
+        end_date: 2016
+        summary: Led the launch of Capital One DevExchange—the first public API platform for a North American bank.
+        highlights:
+          - Launched Capital One DevExchange
+          - First public API platform for a North American bank
+          - Founded API Craft RVA meetup (288+ members)
+
+      - company: Fahrenheit Technology / Emerging Media Group
+        position: Partner & Manager of Technology
+        location: Richmond, VA
+        start_date: 2010
+        end_date: 2014
+        summary: Led technology initiatives for the emerging media practice.
+        highlights:
+          - SXSW Interactive 2011 speaker
+          - Social media API integration
+          - Technology strategy consulting
+
+      - company: Earlier Career
+        position: Various Technology Roles
+        location: Richmond, VA
+        start_date: 1999
+        end_date: 2010
+        summary: Technology leadership at Create Digital, Sublimata, MemberPath, and iXL.
+        highlights:
+          - Web development and digital transformation
+          - Early internet and e-commerce projects
+          - Software development and architecture
+
+    Skills:
+      - name: API Strategy & Design
+        level: Expert
+        icon: fa-solid fa-code
+        keywords: REST API Design, OpenAPI/Swagger, Contract-First Development, API Governance, Developer Experience (DX)
+
+      - name: Twilio Ecosystem
+        level: Expert
+        icon: fa-solid fa-phone
+        keywords: Twilio Flex, Twilio Voice, Twilio SMS, Twilio Conversations, Twilio Segment, Twilio Studio
+
+      - name: Enterprise Modernization
+        level: Expert
+        icon: fa-solid fa-building
+        keywords: Legacy Application Redesign, API-First Architecture, Domain-Driven Design, Microservices
+
+      - name: AI & ML
+        level: Expert
+        icon: fa-solid fa-brain
+        keywords: AI Strategy, AI Transformation, NLP, Conversational AI
+
+      - name: Leadership
+        level: Expert
+        icon: fa-solid fa-users
+        keywords: Product Management, Digital Transformation, Technical Strategy, Team Building
+
+    Projects:
+      - name: API Craft RVA
+        summary: Founded Richmond's API-focused developer community with 288+ members and 13+ events hosted.
+        url: https://www.meetup.com/API-Craft-RVA/
+        start_date: 2014
+        end_date: 2020
+        highlights:
+          - 288+ members
+          - 13+ events hosted
+          - Built Richmond's API developer community
+
+      - name: Capital One DevExchange
+        summary: First public API platform for a North American bank.
+        start_date: 2015
+        end_date: 2016
+        highlights:
+          - Pioneered public APIs in financial services
+          - Developer marketing and community building
+
+    Languages:
+      - name: English
+        summary: Native speaker
+
+    Interests:
+      - name: Technology
+        icon: fa-solid fa-microchip
+        keywords: APIs, AI/ML, Enterprise Architecture, Developer Experience
+
+      - name: Community
+        icon: fa-solid fa-people-group
+        keywords: Meetup organizing, Conference speaking, Mentorship
+
+      - name: Public Speaking
+        icon: fa-solid fa-microphone
+        keywords: Conference talks, Keynotes, Podcasts, Webinars

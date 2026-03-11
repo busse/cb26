@@ -1,0 +1,122 @@
+---
+layout: default
+---
+
+<article class="talk">
+  <header class="talk-header mb-4">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="talk-meta text-muted">
+      <p class="mb-1">
+        <i class="fa-solid fa-calendar me-1"></i>
+        <strong>{{ page.event }}</strong>
+        <span class="mx-2">·</span>
+        {{ page.date | date: "%B %d, %Y" }}
+      </p>
+      <p class="mb-1">
+        <i class="fa-solid fa-location-dot me-1"></i>
+        {{ page.location }}
+      </p>
+      {% if page.type %}
+      <p class="mb-1">
+        <span class="badge bg-primary">{{ page.type | replace: "_", " " | capitalize }}</span>
+        {% if page.featured %}
+        <span class="badge bg-warning text-dark ms-1">Featured</span>
+        {% endif %}
+      </p>
+      {% endif %}
+      {% if page.company %}
+      <p class="mb-1">
+        <i class="fa-solid fa-building me-1"></i>
+        Representing: {{ page.company }}
+      </p>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if page.description %}
+  <div class="talk-description alert alert-light mb-4">
+    <p class="mb-0">{{ page.description }}</p>
+  </div>
+  {% endif %}
+
+  <div class="talk-content">
+    {{ content }}
+  </div>
+
+  {% if page.links %}
+  <div class="talk-links mt-4">
+    <h3>Resources</h3>
+    <ul class="list-unstyled">
+      {% for link in page.links %}
+      <li class="mb-2">
+        <a href="{{ link.url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+          {% if link.name == "Video" or link.name == "Video Recording" %}
+          <i class="fa-solid fa-video me-1"></i>
+          {% elsif link.name == "Slides" %}
+          <i class="fa-solid fa-presentation-screen me-1"></i>
+          {% elsif link.name == "Listen" or link.name == "Podcast" %}
+          <i class="fa-solid fa-headphones me-1"></i>
+          {% elsif link.name == "Article" or link.name == "Blog Post" or link.name == "Event Article" %}
+          <i class="fa-solid fa-newspaper me-1"></i>
+          {% else %}
+          <i class="fa-solid fa-link me-1"></i>
+          {% endif %}
+          {{ link.name }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if page.panelists %}
+  <div class="panelists mt-4">
+    <h3>Panelists</h3>
+    <ul class="list-group">
+      {% for panelist in page.panelists %}
+      <li class="list-group-item">
+        <strong>{{ panelist.name }}</strong>
+        <span class="text-muted">– {{ panelist.title }}</span>
+        {% if panelist.role %}
+        <span class="badge bg-secondary ms-1">{{ panelist.role }}</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if page.co_presenters %}
+  <div class="co-presenters mt-4">
+    <h3>Co-Presenters</h3>
+    <ul class="list-group">
+      {% for presenter in page.co_presenters %}
+      <li class="list-group-item">
+        <strong>{{ presenter.name }}</strong>
+        <span class="text-muted">– {{ presenter.title }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if page.hosts %}
+  <div class="hosts mt-4">
+    <h3>Hosts</h3>
+    <ul class="list-group">
+      {% for host in page.hosts %}
+      <li class="list-group-item">{{ host }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if page.tags %}
+  <div class="talk-tags mt-4">
+    <h3>Topics</h3>
+    {% for tag in page.tags %}
+    <span class="badge bg-light text-dark me-1 mb-1">{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>

@@ -1,0 +1,27 @@
+# this file contains the social media links and usernames of the author
+# the socials will be displayed in the order they are defined here
+# for more information, please refer to the documentation of jekyll-socials plugin: https://github.com/george-gca/jekyll-socials
+
+email: chris@chrisbusse.com
+linkedin_username: chrisbusse
+x_username: busse
+github_username: busse
+rss_icon: true
+
+# Substack newsletter
+substack:
+  logo: https://substack.com/img/substack.png
+  title: Full Backlog
+  url: https://www.fullbacklog.com
+
+# SlideShare presentations
+slideshare:
+  logo: https://www.slideshare.net/favicon.ico
+  title: SlideShare
+  url: https://www.slideshare.net/busse
+
+# Linktree
+linktree:
+  logo: https://assets.production.linktr.ee/e6b26e96bc60e8f65c93d18715afa64fc2e5bb46/images/logo_icon.svg
+  title: Linktree
+  url: https://linktr.ee/chrisbusse

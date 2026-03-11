@@ -1,0 +1,197 @@
+{
+  "basics": {
+    "name": "Chris Busse",
+    "label": "Chief AI Officer & Technology Leader",
+    "image": "",
+    "email": "chris@chrisbusse.com",
+    "url": "https://chrisbusse.com",
+    "summary": "Technology leader with 25+ years of experience specializing in APIs, enterprise modernization, and AI transformation. International speaker at SXSW, Nordic APIs, Twilio SIGNAL, and APIStrat. Founded API Craft RVA and launched the first public API platform for a North American bank.",
+    "location": {
+      "city": "Richmond",
+      "region": "Virginia",
+      "countryCode": "US"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "chrisbusse",
+        "url": "https://www.linkedin.com/in/chrisbusse/"
+      },
+      {
+        "network": "Twitter",
+        "username": "busse",
+        "url": "https://twitter.com/busse"
+      },
+      {
+        "network": "GitHub",
+        "username": "busse",
+        "url": "https://github.com/busse"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "SingleStone",
+      "position": "Chief AI Officer",
+      "url": "https://www.singlestone.com",
+      "startDate": "2024-01-01",
+      "summary": "Leading AI strategy and implementation for enterprise clients. Architecture modernization using domain-driven design principles.",
+      "highlights": [
+        "AI transformation advisory",
+        "Enterprise architecture modernization",
+        "Domain-driven design"
+      ]
+    },
+    {
+      "name": "Eszett",
+      "position": "Founder & Principal",
+      "startDate": "2024-01-01",
+      "summary": "AI transformation consulting and advisory services."
+    },
+    {
+      "name": "Terazo",
+      "position": "Chief Digital Officer & VP of Delivery",
+      "url": "https://terazo.com",
+      "startDate": "2018-01-01",
+      "endDate": "2024-01-01",
+      "summary": "Led digital transformation initiatives and Twilio partnership.",
+      "highlights": [
+        "Twilio SIGNAL speaker (2020, 2021, 2023)",
+        "Twilio SKO 2024 presenter",
+        "Built Twilio Flex contact center solutions"
+      ]
+    },
+    {
+      "name": "APIvista",
+      "position": "CTO & Co-Founder",
+      "startDate": "2016-01-01",
+      "endDate": "2018-01-01",
+      "summary": "API strategy consulting helping clients design, publish, and support APIs.",
+      "highlights": [
+        "Nordic APIs Platform Summit keynote (Stockholm, 2018)",
+        "APIStrat 2017 speaker",
+        "Contract-first API development"
+      ]
+    },
+    {
+      "name": "Capital One",
+      "position": "Senior Manager, Developer Marketing & API Consumer Services",
+      "startDate": "2014-01-01",
+      "endDate": "2016-01-01",
+      "summary": "Led the launch of Capital One DevExchange—the first public API platform for a North American bank.",
+      "highlights": [
+        "Launched Capital One DevExchange",
+        "First public API platform for a North American bank",
+        "Founded API Craft RVA meetup"
+      ]
+    },
+    {
+      "name": "Fahrenheit Technology / Emerging Media Group",
+      "position": "Partner & Manager of Technology",
+      "startDate": "2010-01-01",
+      "endDate": "2014-01-01",
+      "summary": "Led technology initiatives for the emerging media practice.",
+      "highlights": [
+        "SXSW Interactive 2011 speaker",
+        "Social media API integration"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "API Strategy & Design",
+      "level": "Expert",
+      "keywords": [
+        "REST API Design",
+        "OpenAPI/Swagger",
+        "Contract-First Development",
+        "API Governance",
+        "Developer Experience (DX)"
+      ]
+    },
+    {
+      "name": "Twilio Ecosystem",
+      "level": "Expert",
+      "keywords": [
+        "Twilio Flex",
+        "Twilio Voice",
+        "Twilio SMS",
+        "Twilio Conversations",
+        "Twilio Studio"
+      ]
+    },
+    {
+      "name": "Enterprise Modernization",
+      "level": "Expert",
+      "keywords": [
+        "Legacy Application Redesign",
+        "API-First Architecture",
+        "Domain-Driven Design",
+        "Microservices"
+      ]
+    },
+    {
+      "name": "AI & ML",
+      "level": "Expert",
+      "keywords": [
+        "AI Strategy",
+        "AI Transformation",
+        "NLP",
+        "Conversational AI"
+      ]
+    },
+    {
+      "name": "Leadership",
+      "level": "Expert",
+      "keywords": [
+        "Product Management",
+        "Digital Transformation",
+        "Technical Strategy",
+        "Team Building"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Technology",
+      "keywords": [
+        "APIs",
+        "AI/ML",
+        "Enterprise Architecture"
+      ]
+    },
+    {
+      "name": "Community",
+      "keywords": [
+        "Meetup organizing",
+        "Conference speaking",
+        "Mentorship"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "API Craft RVA",
+      "description": "Founded Richmond's API-focused developer community",
+      "highlights": [
+        "288+ members",
+        "13+ events hosted"
+      ],
+      "url": "https://www.meetup.com/API-Craft-RVA/",
+      "startDate": "2014-01-01",
+      "endDate": "2020-01-01"
+    },
+    {
+      "name": "Capital One DevExchange",
+      "description": "First public API platform for a North American bank",
+      "startDate": "2015-01-01",
+      "endDate": "2016-01-01"
+    }
+  ]
+}

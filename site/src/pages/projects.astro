@@ -1,0 +1,186 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import GitHubRepos from '../components/GitHubRepos.astro';
+import { getCollection } from 'astro:content';
+import { fetchPinnedRepos, type GitHubRepo } from '../lib/github';
+
+// Get content collection projects
+const allProjects = await getCollection('projects');
+
+// Sort by importance and type
+const careerProjects = allProjects
+  .filter(p => p.data.type === 'career' || p.data.type === 'consulting')
+  .sort((a, b) => a.data.importance - b.data.importance);
+
+const communityProjects = allProjects
+  .filter(p => p.data.type === 'community')
+  .sort((a, b) => a.data.importance - b.data.importance);
+
+const githubProjects = allProjects
+  .filter(p => p.data.type === 'github')
+  .sort((a, b) => a.data.importance - b.data.importance);
+
+// Fetch live GitHub data (will be empty if no token)
+let pinnedRepos: GitHubRepo[] = [];
+try {
+  pinnedRepos = await fetchPinnedRepos('busse');
+} catch (e) {
+  console.warn('Could not fetch GitHub repos:', e);
+}
+
+// Count stats
+const totalRepos = 45; // From GitHub profile
+const totalStars = githubProjects.reduce((acc, p) => {
+  const starsMatch = p.data.highlights.find(h => h.includes('star'));
+  return acc + (starsMatch ? parseInt(starsMatch) || 0 : 0);
+}, 0) || 20; // Fallback estimate
+---
+
+<PageLayout 
+  title="Projects" 
+  description="Career highlights, open source projects, and community initiatives."
+>
+  <header class="page-header">
+    <span class="kicker">Work & Open Source</span>
+    <h1>Projects</h1>
+    <p class="lead">
+      A selection of career highlights, open source contributions, and community initiatives 
+      from 30 years in technology.
+    </p>
+  </header>
+  
+  <!-- GitHub Repositories Section -->
+  <section class="section section--bordered">
+    <div class="section-header">
+      <h2>Open Source</h2>
+    </div>
+    
+    <div class="github-intro">
+      <p>
+        I build tools at the intersection of retro computing, AI, and developer utilities. 
+        From reviving mid-90s MUSE servers with AI-assisted coding to creating MCP integrations 
+        for hardware hacking, my open source work reflects a curiosity about both the past and 
+        future of computing.
+      </p>
+      <div class="github-stats cluster">
+        <a href="https://github.com/busse" class="btn">
+          github.com/busse →
+        </a>
+        <span class="stat">{totalRepos} repositories</span>
+        <span class="stat">Arctic Code Vault Contributor</span>
+      </div>
+    </div>
+    
+    <!-- Featured GitHub Projects from Content -->
+    <div class="github-featured">
+      <h3>Featured Repositories</h3>
+      <div class="grid-halves">
+        {githubProjects.filter(p => p.data.featured).map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </div>
+    
+    <!-- All GitHub Projects -->
+    <div class="github-all">
+      <h3>More Repositories</h3>
+      <div class="grid-thirds">
+        {githubProjects.filter(p => !p.data.featured).map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </div>
+    
+    <!-- Live GitHub API Results (if available) -->
+    {pinnedRepos.length > 0 && (
+      <div class="github-live">
+        <h3>Live from GitHub</h3>
+        <GitHubRepos repos={pinnedRepos} />
+      </div>
+    )}
+  </section>
+  
+  <!-- Career Projects -->
+  {careerProjects.length > 0 && (
+    <section class="section section--bordered">
+      <div class="section-header">
+        <h2>Career Highlights</h2>
+      </div>
+      <p class="section-intro">
+        Key initiatives and roles that shaped my career in technology—from launching 
+        the first public bank API platform to leading AI transformation at enterprise scale.
+      </p>
+      <div class="grid-halves">
+        {careerProjects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </section>
+  )}
+  
+  <!-- Community Projects -->
+  {communityProjects.length > 0 && (
+    <section class="section section--bordered">
+      <div class="section-header">
+        <h2>Community</h2>
+      </div>
+      <p class="section-intro">
+        Building communities has been a consistent thread through my career. 
+        From developer meetups to conference speaking, I believe in giving back.
+      </p>
+      <div class="grid-halves">
+        {communityProjects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </section>
+  )}
+</PageLayout>
+
+<style>
+  .github-intro {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: var(--border-thin);
+  }
+  
+  .github-intro p {
+    max-width: 65ch;
+    margin-bottom: var(--space-4);
+  }
+  
+  .github-stats {
+    gap: var(--space-6);
+  }
+  
+  .stat {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-muted);
+  }
+  
+  .github-featured,
+  .github-all,
+  .github-live {
+    margin-top: var(--space-8);
+  }
+  
+  .github-featured h3,
+  .github-all h3,
+  .github-live h3 {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-4);
+    margin-top: 0;
+  }
+  
+  .section-intro {
+    max-width: 65ch;
+    margin-bottom: var(--space-6);
+    color: var(--color-ink-light);
+  }
+</style>

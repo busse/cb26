@@ -1,0 +1,299 @@
+/* ==========================================================================
+   LAYOUT SYSTEM
+   Asymmetric grid with strong left rail - newspaper/magazine feel
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CONTAINER
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.container--narrow {
+  max-width: var(--content-width);
+}
+
+.container--wide {
+  max-width: 90rem;
+}
+
+/* --------------------------------------------------------------------------
+   SITE WRAPPER
+   -------------------------------------------------------------------------- */
+.site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-main {
+  flex: 1;
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-20);
+}
+
+/* --------------------------------------------------------------------------
+   GRID SYSTEM - Editorial Asymmetric Layout
+   -------------------------------------------------------------------------- */
+
+/* Main content grid - asymmetric with left rail */
+.grid-editorial {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+@media (min-width: 64rem) {
+  .grid-editorial {
+    grid-template-columns: var(--sidebar-width) 1fr;
+    gap: var(--space-12);
+  }
+}
+
+/* Three column grid for homepage sections */
+.grid-thirds {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 48rem) {
+  .grid-thirds {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .grid-thirds {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Two column grid */
+.grid-halves {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 48rem) {
+  .grid-halves {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Main + Sidebar layout */
+.grid-main-sidebar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+@media (min-width: 64rem) {
+  .grid-main-sidebar {
+    grid-template-columns: 1fr var(--sidebar-width);
+    gap: var(--space-12);
+  }
+}
+
+/* Photo grid - responsive masonry-like */
+.grid-photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+@media (min-width: 48rem) {
+  .grid-photos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .grid-photos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   SECTION BLOCKS
+   -------------------------------------------------------------------------- */
+.section {
+  margin-bottom: var(--space-16);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+/* Section with top border - newspaper section divider */
+.section--bordered {
+  border-top: var(--border-thick);
+  padding-top: var(--space-6);
+}
+
+/* Section with accent marker */
+.section--accent {
+  border-top: var(--border-accent);
+  padding-top: var(--space-6);
+}
+
+/* Section header with rule */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.section-header h2 {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.section-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-rule);
+}
+
+/* Section number - Bauer wayfinding style */
+.section-number {
+  font-family: var(--font-headline);
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-rule);
+  margin-right: var(--space-4);
+}
+
+/* --------------------------------------------------------------------------
+   SIDEBAR
+   -------------------------------------------------------------------------- */
+.sidebar {
+  font-size: var(--font-size-sm);
+}
+
+.sidebar-block {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: var(--border-thin);
+}
+
+.sidebar-block:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.sidebar-block h3 {
+  font-size: var(--font-size-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-3);
+  margin-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   ARTICLE LAYOUT
+   -------------------------------------------------------------------------- */
+.article {
+  max-width: var(--content-width);
+}
+
+.article-header {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: var(--border-thin);
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-ink-muted);
+  margin-top: var(--space-4);
+}
+
+.article-body > *:first-child {
+  margin-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   PAGE HEADER
+   -------------------------------------------------------------------------- */
+.page-header {
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-8);
+  border-bottom: var(--border-thick);
+}
+
+.page-header h1 {
+  margin-bottom: var(--space-4);
+}
+
+.page-header .lead {
+  max-width: 55ch;
+}
+
+/* --------------------------------------------------------------------------
+   STACK & CLUSTER - Compositional Layout Primitives
+   -------------------------------------------------------------------------- */
+
+/* Vertical stack with consistent spacing */
+.stack > * + * {
+  margin-top: var(--space-4);
+}
+
+.stack--lg > * + * {
+  margin-top: var(--space-8);
+}
+
+.stack--sm > * + * {
+  margin-top: var(--space-2);
+}
+
+/* Horizontal cluster with wrapping */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE VISIBILITY
+   -------------------------------------------------------------------------- */
+@media (max-width: 47.99rem) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .hide-tablet {
+    display: none !important;
+  }
+}
+
+@media (min-width: 64rem) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .hide-until-desktop {
+    display: none !important;
+  }
+}

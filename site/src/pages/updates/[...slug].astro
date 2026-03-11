@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const updates = await getCollection('updates');
+  // Only generate pages for non-external updates
+  return updates
+    .filter(update => !update.data.external_url)
+    .map((update) => ({
+      params: { slug: update.slug },
+      props: { update },
+    }));
+}
+
+const { update } = Astro.props;
+const { Content } = await update.render();
+---
+
+<PostLayout 
+  title={update.data.title}
+  description={update.data.description || ''}
+  date={update.data.date}
+  image={update.data.image}
+  tags={update.data.tags}
+  kicker="Update"
+>
+  <Content />
+  
+  <p style="margin-top: var(--space-10);">
+    <a href="/updates/">← Back to Updates</a>
+  </p>
+</PostLayout>

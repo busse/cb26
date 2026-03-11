@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  talk: CollectionEntry<'talks'>;
+  showYear?: boolean;
+}
+
+const { talk, showYear = false } = Astro.props;
+const { data, slug } = talk;
+
+const typeLabels: Record<string, string> = {
+  keynote: 'Keynote',
+  talk: 'Talk',
+  panel: 'Panel',
+  podcast: 'Podcast',
+  webinar: 'Webinar',
+  workshop: 'Workshop',
+  interview: 'Interview',
+  conference_attendance: 'Conference',
+};
+
+const formattedDate = data.date.toLocaleDateString('en-US', {
+  year: showYear ? 'numeric' : undefined,
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<article class="talk-card">
+  <span class="talk-card-type">
+    {typeLabels[data.type] || data.type}
+    {data.featured && <span class="text-accent"> · Featured</span>}
+  </span>
+  <h3 class="talk-card-title">
+    <a href={`/speaking/${slug}/`}>{data.title}</a>
+  </h3>
+  <p class="talk-card-venue">
+    <strong>{data.event}</strong> · {data.location}
+    {showYear && <span> · {formattedDate}</span>}
+  </p>
+</article>

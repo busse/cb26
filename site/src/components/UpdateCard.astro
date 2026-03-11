@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  update: CollectionEntry<'updates'>;
+  showExcerpt?: boolean;
+}
+
+const { update, showExcerpt = true } = Astro.props;
+const { data, slug } = update;
+
+const formattedDate = data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+
+const url = data.external_url || `/updates/${slug}/`;
+const isExternal = !!data.external_url;
+---
+
+<article class={`card ${data.featured ? 'card--featured' : ''}`}>
+  <h3 class="card-title">
+    <a href={url}>
+      {data.title}
+      {isExternal && <span class="text-muted"> ↗</span>}
+    </a>
+  </h3>
+  <p class="card-meta">{formattedDate}</p>
+  {showExcerpt && data.description && (
+    <p class="card-excerpt">{data.description}</p>
+  )}
+</article>

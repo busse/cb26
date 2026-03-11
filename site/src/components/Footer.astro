@@ -1,0 +1,66 @@
+---
+import { siteConfig, socials, companies } from '../data/socials';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-about">
+        <div class="footer-brand">{siteConfig.title}</div>
+        <p class="footer-tagline">
+          {siteConfig.tagline}. Based in {siteConfig.location}.
+        </p>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-heading">Current Work</h3>
+        <ul class="footer-links">
+          <li>
+            <a href={companies.singlestone.url}>
+              {companies.singlestone.name}
+            </a>
+            <span class="footer-role">{companies.singlestone.role}</span>
+          </li>
+          <li>
+            <a href={companies.eszett.url}>
+              {companies.eszett.name}
+            </a>
+            <span class="footer-role">{companies.eszett.role}</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-heading">Connect</h3>
+        <ul class="footer-links">
+          <li>
+            <a href={`mailto:${socials.email}`}>Email</a>
+          </li>
+          <li>
+            <a href={socials.linkedin.url}>LinkedIn</a>
+          </li>
+          <li>
+            <a href={socials.github.url}>GitHub</a>
+          </li>
+          <li>
+            <a href={socials.threads.url}>Threads</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; {currentYear} {siteConfig.author}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-role {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-ink-muted);
+  }
+</style>

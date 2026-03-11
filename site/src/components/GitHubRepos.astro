@@ -1,0 +1,99 @@
+---
+import type { GitHubRepo } from '../lib/github';
+
+interface Props {
+  repos: GitHubRepo[];
+}
+
+const { repos } = Astro.props;
+---
+
+<div class="github-repos">
+  {repos.map((repo) => (
+    <article class="github-repo">
+      <div class="github-repo-header">
+        <span class="github-repo-lang">{repo.language || 'Code'}</span>
+        <div class="github-repo-stats">
+          <span title="Stars">★ {repo.stars}</span>
+          {repo.forks > 0 && <span title="Forks">⑂ {repo.forks}</span>}
+        </div>
+      </div>
+      <h3 class="github-repo-name">
+        <a href={repo.url}>{repo.name}</a>
+      </h3>
+      <p class="github-repo-desc">{repo.description || 'No description'}</p>
+      {repo.topics.length > 0 && (
+        <div class="github-repo-topics">
+          {repo.topics.slice(0, 4).map((topic) => (
+            <span class="tag">{topic}</span>
+          ))}
+        </div>
+      )}
+    </article>
+  ))}
+</div>
+
+<style>
+  .github-repos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: var(--space-6);
+  }
+  
+  .github-repo {
+    padding: var(--space-5);
+    background: var(--color-paper-dark);
+    border-top: 2px solid var(--color-ink);
+  }
+  
+  .github-repo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+  }
+  
+  .github-repo-lang {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  
+  .github-repo-stats {
+    display: flex;
+    gap: var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-muted);
+  }
+  
+  .github-repo-name {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    margin: 0 0 var(--space-2);
+  }
+  
+  .github-repo-name a {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  
+  .github-repo-name a:hover {
+    text-decoration: underline;
+  }
+  
+  .github-repo-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-light);
+    line-height: 1.5;
+    margin-bottom: var(--space-3);
+  }
+  
+  .github-repo-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+</style>

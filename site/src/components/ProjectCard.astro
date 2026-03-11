@@ -1,0 +1,187 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { data, slug } = project;
+
+const isGitHub = data.type === 'github';
+// Always link to the detail page for portfolio view
+const detailUrl = `/projects/${slug}/`;
+// External URL for quick access
+const externalUrl = data.url || (isGitHub && data.github_repo ? `https://github.com/${data.github_repo}` : null);
+
+// Get first screenshot for thumbnail
+const thumbnail = data.screenshots?.[0]?.image || data.image;
+
+// Status display
+const statusLabels: Record<string, string> = {
+  active: 'Active',
+  archived: 'Archived',
+  concept: 'Concept',
+  wip: 'WIP',
+};
+---
+
+<article class={`project-card ${isGitHub ? 'project-card--github' : ''} ${thumbnail ? 'project-card--has-thumb' : ''}`}>
+  {thumbnail && (
+    <a href={detailUrl} class="project-card-thumb">
+      <img src={thumbnail} alt="" loading="lazy" />
+    </a>
+  )}
+  
+  <div class="project-card-content">
+    <div class="project-card-meta">
+      <span class="project-card-category">{data.category}</span>
+      {data.status && data.status !== 'active' && (
+        <span class={`project-card-status project-card-status--${data.status}`}>
+          {statusLabels[data.status]}
+        </span>
+      )}
+    </div>
+    
+    <h3 class="project-card-title">
+      <a href={detailUrl}>{data.title}</a>
+    </h3>
+    
+    <p class="project-card-description">{data.description}</p>
+    
+    {data.tech_stack && data.tech_stack.length > 0 && (
+      <div class="project-card-tech">
+        {data.tech_stack.slice(0, 4).map((tech) => (
+          <span class="tech-tag">{tech}</span>
+        ))}
+        {data.tech_stack.length > 4 && (
+          <span class="tech-tag tech-tag--more">+{data.tech_stack.length - 4}</span>
+        )}
+      </div>
+    )}
+    
+    {data.highlights && data.highlights.length > 0 && (
+      <div class="project-card-stats">
+        {data.highlights.slice(0, 3).map((highlight) => (
+          <span>{highlight}</span>
+        ))}
+      </div>
+    )}
+    
+    {externalUrl && (
+      <a href={externalUrl} class="project-card-external" aria-label="External link">
+        ↗
+      </a>
+    )}
+  </div>
+</article>
+
+<style>
+  .project-card--has-thumb {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-4);
+  }
+  
+  @media (min-width: 48rem) {
+    .project-card--has-thumb {
+      grid-template-columns: 160px 1fr;
+    }
+  }
+  
+  .project-card-thumb {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--color-paper-dark);
+    border: 1px solid var(--color-rule);
+  }
+  
+  .project-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+  }
+  
+  .project-card:hover .project-card-thumb img {
+    transform: scale(1.03);
+  }
+  
+  .project-card-content {
+    position: relative;
+  }
+  
+  .project-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-1);
+  }
+  
+  .project-card-status {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  
+  .project-card-status--archived {
+    background: var(--color-ink-muted);
+    color: white;
+  }
+  
+  .project-card-status--concept {
+    background: #8b5cf6;
+    color: white;
+  }
+  
+  .project-card-status--wip {
+    background: #f59e0b;
+    color: white;
+  }
+  
+  .project-card-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+  
+  .tech-tag {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 6px;
+    background: var(--color-paper-dark);
+    color: var(--color-ink-muted);
+    border: 1px solid var(--color-rule);
+  }
+  
+  .tech-tag--more {
+    background: transparent;
+    color: var(--color-ink-light);
+    border-style: dashed;
+  }
+  
+  .project-card-external {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-muted);
+    text-decoration: none;
+    padding: var(--space-1);
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+  }
+  
+  .project-card:hover .project-card-external {
+    opacity: 1;
+  }
+  
+  .project-card-external:hover {
+    color: var(--color-accent);
+  }
+</style>

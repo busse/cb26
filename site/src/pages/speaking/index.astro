@@ -1,0 +1,423 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import TalkCard from '../../components/TalkCard.astro';
+import { getCollection } from 'astro:content';
+import { socials } from '../../data/socials';
+
+const allTalks = await getCollection('talks');
+
+// Separate by status
+const availableTalks = allTalks.filter(t => t.data.status === 'available');
+const upcomingTalks = allTalks
+  .filter(t => t.data.status === 'upcoming')
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const pastTalks = allTalks
+  .filter(t => t.data.status === 'past')
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Group past talks by year
+const talksByYear = pastTalks.reduce((acc, talk) => {
+  const year = talk.data.date.getFullYear().toString();
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(talk);
+  return acc;
+}, {} as Record<string, typeof pastTalks>);
+
+const years = Object.keys(talksByYear).sort((a, b) => parseInt(b) - parseInt(a));
+
+// Stats
+const totalTalks = pastTalks.length;
+const keynotes = pastTalks.filter(t => t.data.type === 'keynote').length;
+const panels = pastTalks.filter(t => t.data.type === 'panel').length;
+---
+
+<PageLayout 
+  title="Speaking" 
+  description="Conference talks, keynotes, podcasts, and panel facilitation. Available for speaking engagements."
+>
+  <header class="page-header">
+    <span class="kicker">Speaking & Presentations</span>
+    <h1>Speaking</h1>
+    <p class="lead">
+      I've been speaking at conferences, meetups, and podcasts for over 15 years, 
+      covering APIs, AI transformation, and enterprise modernization across three continents.
+    </p>
+    <div class="cluster" style="margin-top: var(--space-4);">
+      <span class="tag">{totalTalks}+ appearances</span>
+      <span class="tag">{keynotes} keynotes</span>
+      <span class="tag">{panels} panels</span>
+      <a href="/speaking/facilitation/" class="tag tag--accent">Panel Facilitation</a>
+    </div>
+  </header>
+  
+  <!-- Three Column Layout -->
+  <div class="speaking-grid">
+    
+    <!-- Column 1: Book Me -->
+    <section class="speaking-column speaking-column--book">
+      <div class="column-header">
+        <span class="column-number">01</span>
+        <h2>Book Me</h2>
+      </div>
+      <div class="column-content">
+        <p class="column-intro">
+          Available for keynotes, workshops, panels, and podcast appearances.
+        </p>
+        
+        <div class="available-talks">
+          {availableTalks.map((talk) => (
+            <article class="available-talk-card">
+              <span class="talk-type-badge">{talk.data.type}</span>
+              <h3>{talk.data.title}</h3>
+              {talk.data.duration && (
+                <span class="talk-duration">{talk.data.duration}</span>
+              )}
+              <p>{talk.data.description}</p>
+              <a href={`/speaking/${talk.slug}/`} class="read-more">Details →</a>
+            </article>
+          ))}
+        </div>
+        
+        <div class="book-cta">
+          <a href="/speaking/facilitation/" class="cta-link">
+            <strong>Panel Facilitation</strong>
+            <span>Hero's Journey approach</span>
+          </a>
+          <a href={`mailto:${socials.email}?subject=Speaking%20Inquiry`} class="btn btn--primary">
+            Get in Touch
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Column 2: Upcoming -->
+    <section class="speaking-column speaking-column--upcoming">
+      <div class="column-header">
+        <span class="column-number">02</span>
+        <h2>Upcoming</h2>
+      </div>
+      <div class="column-content">
+        {upcomingTalks.length > 0 ? (
+          <div class="upcoming-talks">
+            {upcomingTalks.map((talk) => {
+              const dateStr = talk.data.date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              });
+              return (
+                <article class="upcoming-talk-card">
+                  <time class="upcoming-date">{dateStr}</time>
+                  <h3>
+                    <a href={`/speaking/${talk.slug}/`}>{talk.data.title}</a>
+                  </h3>
+                  <p class="upcoming-venue">
+                    {talk.data.event}<br />
+                    <span class="location">{talk.data.location}</span>
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="no-upcoming">
+            <p>No confirmed upcoming appearances at this time.</p>
+            <p class="text-muted">
+              Check back soon, or <a href={`mailto:${socials.email}`}>reach out</a> to 
+              discuss having me speak at your event.
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+    
+    <!-- Column 3: Past -->
+    <section class="speaking-column speaking-column--past">
+      <div class="column-header">
+        <span class="column-number">03</span>
+        <h2>Archive</h2>
+      </div>
+      <div class="column-content">
+        <div class="past-talks-scroll">
+          {years.map((year) => (
+            <div class="year-group">
+              <h3 class="year-heading">{year}</h3>
+              <ul class="past-talks-list">
+                {talksByYear[year].map((talk) => (
+                  <li class="past-talk-item">
+                    <a href={`/speaking/${talk.slug}/`}>
+                      <span class="past-talk-title">{talk.data.title}</span>
+                      <span class="past-talk-event">{talk.data.event}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+    
+  </div>
+</PageLayout>
+
+<style>
+  .speaking-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+  }
+  
+  @media (min-width: 64rem) {
+    .speaking-grid {
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      gap: var(--space-6);
+    }
+  }
+  
+  .speaking-column {
+    border-top: 3px solid var(--color-ink);
+    padding-top: var(--space-4);
+  }
+  
+  .speaking-column--book {
+    border-top-color: var(--color-accent);
+  }
+  
+  .column-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+  
+  .column-number {
+    font-family: var(--font-headline);
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-rule);
+  }
+  
+  .column-header h2 {
+    font-size: var(--font-size-lg);
+    margin: 0;
+  }
+  
+  .column-intro {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-light);
+    margin-bottom: var(--space-4);
+  }
+  
+  /* Available Talks */
+  .available-talks {
+    margin-bottom: var(--space-6);
+  }
+  
+  .available-talk-card {
+    padding: var(--space-4) 0;
+    border-bottom: var(--border-thin);
+  }
+  
+  .available-talk-card:first-child {
+    padding-top: 0;
+  }
+  
+  .talk-type-badge {
+    display: inline-block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-1);
+  }
+  
+  .available-talk-card h3 {
+    font-size: var(--font-size-base);
+    font-family: var(--font-headline);
+    margin: 0 0 var(--space-1);
+  }
+  
+  .talk-duration {
+    font-size: var(--font-size-xs);
+    color: var(--color-ink-muted);
+  }
+  
+  .available-talk-card p {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-light);
+    margin: var(--space-2) 0;
+  }
+  
+  .read-more {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+  }
+  
+  /* Book CTA */
+  .book-cta {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: var(--border-thin);
+  }
+  
+  .cta-link {
+    display: block;
+    padding: var(--space-3);
+    background: var(--color-paper-dark);
+    border-left: 3px solid var(--color-accent);
+    margin-bottom: var(--space-4);
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+  
+  .cta-link strong {
+    display: block;
+    font-size: var(--font-size-sm);
+  }
+  
+  .cta-link span {
+    font-size: var(--font-size-xs);
+    color: var(--color-ink-muted);
+  }
+  
+  .cta-link:hover {
+    background: var(--color-paper-dark);
+    border-left-color: var(--color-ink);
+  }
+  
+  /* Upcoming Talks */
+  .upcoming-talks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .upcoming-talk-card {
+    padding: var(--space-4);
+    background: var(--color-paper-dark);
+    border-left: 3px solid var(--color-accent);
+  }
+  
+  .upcoming-date {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-1);
+  }
+  
+  .upcoming-talk-card h3 {
+    font-size: var(--font-size-base);
+    margin: 0 0 var(--space-2);
+  }
+  
+  .upcoming-talk-card h3 a {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  
+  .upcoming-talk-card h3 a:hover {
+    text-decoration: underline;
+  }
+  
+  .upcoming-venue {
+    font-size: var(--font-size-sm);
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  .upcoming-venue .location {
+    color: var(--color-ink-muted);
+  }
+  
+  .no-upcoming {
+    padding: var(--space-6);
+    background: var(--color-paper-dark);
+    text-align: center;
+  }
+  
+  .no-upcoming p:first-child {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-2);
+  }
+  
+  /* Past Talks */
+  .past-talks-scroll {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: var(--space-2);
+  }
+  
+  @media (min-width: 64rem) {
+    .past-talks-scroll {
+      max-height: 70vh;
+    }
+  }
+  
+  .year-group {
+    margin-bottom: var(--space-6);
+  }
+  
+  .year-heading {
+    font-family: var(--font-headline);
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-rule);
+    margin: 0 0 var(--space-2);
+    position: sticky;
+    top: 0;
+    background: var(--color-paper);
+    padding: var(--space-1) 0;
+  }
+  
+  .past-talks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .past-talk-item {
+    margin-bottom: 0;
+  }
+  
+  .past-talk-item a {
+    display: block;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-rule-light);
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+  
+  .past-talk-item a:hover {
+    background: var(--color-paper-dark);
+    margin: 0 calc(-1 * var(--space-2));
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+  }
+  
+  .past-talk-title {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  
+  .past-talk-event {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-ink-muted);
+    margin-top: 2px;
+  }
+  
+  /* Tag accent variant */
+  .tag--accent {
+    background: var(--color-accent);
+    color: white;
+  }
+</style>

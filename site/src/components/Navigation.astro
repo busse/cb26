@@ -1,0 +1,51 @@
+---
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Speaking', href: '/speaking/' },
+  { label: 'Projects', href: '/projects/' },
+  { label: 'Updates', href: '/updates/' },
+  { label: 'Photography', href: '/photography/' },
+];
+
+const currentPath = Astro.url.pathname;
+
+function isCurrentPage(href: string): boolean {
+  if (href === '/') {
+    return currentPath === '/';
+  }
+  return currentPath.startsWith(href);
+}
+---
+
+<nav class="nav-primary" aria-label="Main navigation">
+  <div class="container">
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list">
+      Menu
+    </button>
+    <ul class="nav-list" id="nav-list">
+      {navItems.map((item) => (
+        <li>
+          <a 
+            href={item.href} 
+            class="nav-link"
+            aria-current={isCurrentPage(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const navList = document.querySelector('.nav-list');
+  
+  toggle?.addEventListener('click', () => {
+    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isExpanded));
+    navList?.classList.toggle('is-open');
+  });
+</script>

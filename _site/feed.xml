@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-02-01T09:12:45-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Chris Busse</title><subtitle>Technology leader specializing in APIs, enterprise modernization, and AI transformation. Chief AI Officer at SingleStone. Speaker at SXSW, Nordic APIs, Twilio SIGNAL, and more.
+</subtitle><entry><title type="html">Using APIs to Innovate Faster in a Space Between ‘Buy’ and ‘Build’</title><link href="http://0.0.0.0:4000/blog/2021/using-apis-to-innovate-faster/" rel="alternate" type="text/html" title="Using APIs to Innovate Faster in a Space Between ‘Buy’ and ‘Build’" /><published>2021-01-01T00:00:00-05:00</published><updated>2021-01-01T00:00:00-05:00</updated><id>http://0.0.0.0:4000/blog/2021/using-apis-to-innovate-faster</id><content type="html" xml:base="http://0.0.0.0:4000/blog/2021/using-apis-to-innovate-faster/"><![CDATA[<p><em>Originally published on <a href="https://diginomica.com/using-apis-innovate-faster-space-between-buy-and-build">Diginomica</a></em></p>
+
+<p>This article explores how APIs (including Twilio’s Programmable Messaging API and Conversation API) enable innovation in the space between fully custom-built solutions and off-the-shelf products.</p>
+
+<h2 id="key-examples">Key Examples</h2>
+
+<ul>
+  <li><strong>SMS shipment updates</strong> for a global logistics provider</li>
+  <li><strong>NLP-powered conversational computing</strong> for customer service</li>
+</ul>
+
+<h2 id="the-buy-vs-build-dilemma">The Buy vs. Build Dilemma</h2>
+
+<p>For decades, enterprises have faced the “buy vs. build” decision. APIs offer a third path: composing solutions from programmable building blocks.</p>
+
+<p>Instead of building everything from scratch or accepting the limitations of packaged software, APIs let you:</p>
+
+<ul>
+  <li>Start with proven components</li>
+  <li>Customize exactly what matters</li>
+  <li>Maintain flexibility for future changes</li>
+  <li>Innovate faster than either extreme</li>
+</ul>
+
+<p><a href="https://diginomica.com/using-apis-innovate-faster-space-between-buy-and-build">Read the full article on Diginomica →</a></p>]]></content><author><name></name></author><category term="archive-pass0" /><category term="external-posts" /><category term="api" /><category term="innovation" /><category term="twilio" /><category term="nlp" /><summary type="html"><![CDATA[How APIs enable innovation with real-world examples from logistics and conversational AI.]]></summary></entry></feed>

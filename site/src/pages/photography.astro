@@ -1,0 +1,91 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import { getCollection } from 'astro:content';
+
+const allPhotos = await getCollection('photos');
+
+const sortedPhotos = allPhotos.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const featuredPhotos = sortedPhotos.filter(p => p.data.featured);
+const recentPhotos = sortedPhotos.slice(0, 12);
+
+// Get unique locations
+const locations = [...new Set(sortedPhotos.map(p => p.data.location).filter(Boolean))];
+---
+
+<PageLayout 
+  title="Photography" 
+  description="A lifelong love of photography. Selected images from travels and daily life."
+>
+  <header class="page-header">
+    <span class="kicker">Visual Stories</span>
+    <h1>Photography</h1>
+    <p class="lead">
+      I've been making photographs for as long as I can remember. A way of seeing the world, 
+      capturing moments, and finding beauty in the everyday.
+    </p>
+  </header>
+  
+  <!-- Featured Photos -->
+  {featuredPhotos.length > 0 && (
+    <section class="section section--accent">
+      <div class="section-header">
+        <h2>Featured</h2>
+      </div>
+      <PhotoGrid photos={featuredPhotos} columns={3} />
+    </section>
+  )}
+  
+  <!-- Recent Photos -->
+  <section class="section section--bordered">
+    <div class="section-header">
+      <h2>Recent</h2>
+    </div>
+    {sortedPhotos.length > 0 ? (
+      <PhotoGrid photos={recentPhotos} columns={4} />
+    ) : (
+      <div class="photo-placeholder">
+        <p class="text-muted">
+          Photo gallery coming soon. A selection of images from travels, projects, and daily life.
+        </p>
+      </div>
+    )}
+  </section>
+  
+  <!-- Locations -->
+  {locations.length > 0 && (
+    <aside class="photo-locations">
+      <h3>Locations</h3>
+      <div class="cluster">
+        {locations.map((loc) => (
+          <span class="tag">{loc}</span>
+        ))}
+      </div>
+    </aside>
+  )}
+</PageLayout>
+
+<style>
+  .photo-placeholder {
+    background: var(--color-paper-dark);
+    padding: var(--space-16);
+    text-align: center;
+  }
+  
+  .photo-locations {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: var(--border-thin);
+  }
+  
+  .photo-locations h3 {
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-3);
+    margin-top: 0;
+  }
+</style>

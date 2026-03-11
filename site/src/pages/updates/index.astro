@@ -1,0 +1,83 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import UpdateCard from '../../components/UpdateCard.astro';
+import { getCollection } from 'astro:content';
+import { socials } from '../../data/socials';
+
+const allUpdates = await getCollection('updates');
+
+const publishedUpdates = allUpdates
+  .filter(u => !u.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Get unique tags
+const allTags = [...new Set(publishedUpdates.flatMap(u => u.data.tags))];
+---
+
+<PageLayout 
+  title="Updates" 
+  description="Articles, announcements, and updates on APIs, AI, enterprise technology, and more."
+>
+  <header class="page-header">
+    <span class="kicker">Blog</span>
+    <h1>Updates</h1>
+    <p class="lead">
+      Articles, announcements, and notes on APIs, AI transformation, 
+      enterprise architecture, and the craft of building software.
+    </p>
+    <div class="cluster" style="margin-top: var(--space-4);">
+      <a href={socials.substack.url} class="btn">
+        Subscribe to Full Backlog →
+      </a>
+    </div>
+  </header>
+  
+  <section class="section">
+    {publishedUpdates.length > 0 ? (
+      <div class="updates-list stack--lg">
+        {publishedUpdates.map((update) => (
+          <UpdateCard update={update} />
+        ))}
+      </div>
+    ) : (
+      <p class="text-muted">
+        Updates coming soon. In the meantime, check out 
+        <a href={socials.substack.url}>Full Backlog on Substack</a>.
+      </p>
+    )}
+  </section>
+  
+  {allTags.length > 0 && (
+    <aside class="updates-topics">
+      <h3>Topics</h3>
+      <div class="cluster">
+        {allTags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </aside>
+  )}
+</PageLayout>
+
+<style>
+  .updates-list {
+    max-width: var(--content-width);
+  }
+  
+  .updates-topics {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: var(--border-thin);
+  }
+  
+  .updates-topics h3 {
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-3);
+    margin-top: 0;
+  }
+</style>

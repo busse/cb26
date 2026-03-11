@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Masthead from '../components/Masthead.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import TalkCard from '../components/TalkCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import UpdateCard from '../components/UpdateCard.astro';
+import NovelsAside from '../components/NovelsAside.astro';
+import { getCollection } from 'astro:content';
+import { siteConfig, companies } from '../data/socials';
+
+// Get content collections
+const allTalks = await getCollection('talks');
+const allProjects = await getCollection('projects');
+const allUpdates = await getCollection('updates');
+
+// Sort and filter
+const recentTalks = allTalks
+  .filter(t => t.data.status === 'past')
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 4);
+
+const upcomingTalks = allTalks
+  .filter(t => t.data.status === 'upcoming')
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
+  .slice(0, 2);
+
+const featuredProjects = allProjects
+  .sort((a, b) => a.data.importance - b.data.importance)
+  .slice(0, 4);
+
+const recentUpdates = allUpdates
+  .filter(u => !u.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 4);
+---
+
+<BaseLayout>
+  <Masthead />
+  <Navigation />
+  
+  <main class="site-main">
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="hero">
+        <span class="hero-kicker">Technology Leader · Speaker · 30 Years in Tech</span>
+        <h1 class="hero-title">
+          Solving complex problems at the intersection of APIs, AI, and enterprise transformation
+        </h1>
+        <p class="hero-lead">
+          Leading Enterprise Client Solutions and AI at <a href={companies.singlestone.url}>{companies.singlestone.name}</a>. 
+          At <a href={companies.eszett.url}>{companies.eszett.name}</a>, I help artists who reject AI in their art 
+          leverage it to better position and sell their work. Speaker at SXSW, Nordic APIs, Twilio SIGNAL, and more. 
+          Based in {siteConfig.location}.
+        </p>
+      </section>
+      
+      <hr class="thick" />
+      
+      <!-- Main Grid: Content + Sidebar -->
+      <div class="grid-main-sidebar">
+        <div class="main-content">
+          <!-- Upcoming Talks -->
+          {upcomingTalks.length > 0 && (
+            <section class="section section--accent">
+              <div class="section-header">
+                <h2>Upcoming</h2>
+              </div>
+              <div class="stack">
+                {upcomingTalks.map((talk) => (
+                  <TalkCard talk={talk} showYear={true} />
+                ))}
+              </div>
+            </section>
+          )}
+          
+          <!-- Three Column Grid -->
+          <div class="grid-thirds">
+            <!-- Recent Speaking -->
+            <section class="section section--bordered">
+              <div class="section-header">
+                <h2>Speaking</h2>
+              </div>
+              <div class="stack">
+                {recentTalks.map((talk) => (
+                  <TalkCard talk={talk} />
+                ))}
+              </div>
+              <p style="margin-top: var(--space-4);">
+                <a href="/speaking/" class="btn">All Speaking →</a>
+              </p>
+            </section>
+            
+            <!-- Projects -->
+            <section class="section section--bordered">
+              <div class="section-header">
+                <h2>Projects</h2>
+              </div>
+              <div class="stack--lg">
+                {featuredProjects.map((project) => (
+                  <ProjectCard project={project} />
+                ))}
+              </div>
+              <p style="margin-top: var(--space-4);">
+                <a href="/projects/" class="btn">All Projects →</a>
+              </p>
+            </section>
+            
+            <!-- Updates -->
+            <section class="section section--bordered">
+              <div class="section-header">
+                <h2>Updates</h2>
+              </div>
+              <div class="stack--lg">
+                {recentUpdates.map((update) => (
+                  <UpdateCard update={update} showExcerpt={false} />
+                ))}
+              </div>
+              <p style="margin-top: var(--space-4);">
+                <a href="/updates/" class="btn">All Updates →</a>
+              </p>
+            </section>
+          </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar hide-until-desktop">
+          <!-- Novels Aside -->
+          <div class="sidebar-block">
+            <NovelsAside />
+          </div>
+          
+          <!-- Book Me CTA -->
+          <div class="sidebar-block">
+            <h3>Book Me to Speak</h3>
+            <p style="font-size: var(--font-size-sm); color: var(--color-ink-light); margin-bottom: var(--space-3);">
+              Available for keynotes, workshops, and panel facilitation on APIs, AI transformation, and enterprise modernization.
+            </p>
+            <a href="/speaking/#available" class="btn btn--primary">View Available Talks</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<style>
+  .main-content {
+    min-width: 0;
+  }
+  
+  .grid-thirds {
+    margin-top: var(--space-10);
+  }
+  
+  @media (max-width: 63.99rem) {
+    .grid-thirds {
+      gap: var(--space-10);
+    }
+  }
+</style>

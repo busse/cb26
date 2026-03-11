@@ -1,0 +1,214 @@
+---
+import { getCollection } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const talks = await getCollection('talks');
+  return talks.map((talk) => ({
+    params: { slug: talk.slug },
+    props: { talk },
+  }));
+}
+
+const { talk } = Astro.props;
+const { Content } = await talk.render();
+
+const typeLabels: Record<string, string> = {
+  keynote: 'Keynote',
+  talk: 'Talk',
+  panel: 'Panel Discussion',
+  podcast: 'Podcast',
+  webinar: 'Webinar',
+  workshop: 'Workshop',
+  interview: 'Interview',
+  conference_attendance: 'Conference',
+};
+---
+
+<PostLayout 
+  title={talk.data.title}
+  description={talk.data.description}
+  date={talk.data.date}
+  kicker={`${typeLabels[talk.data.type]} · ${talk.data.event}`}
+  tags={talk.data.tags}
+  type="talk"
+>
+  <!-- Talk metadata -->
+  <div class="talk-meta-block">
+    <dl class="talk-details">
+      <div class="talk-detail">
+        <dt>Event</dt>
+        <dd>{talk.data.event}</dd>
+      </div>
+      <div class="talk-detail">
+        <dt>Location</dt>
+        <dd>{talk.data.location}</dd>
+      </div>
+      {talk.data.company && (
+        <div class="talk-detail">
+          <dt>Representing</dt>
+          <dd>{talk.data.company}</dd>
+        </div>
+      )}
+      {talk.data.duration && (
+        <div class="talk-detail">
+          <dt>Duration</dt>
+          <dd>{talk.data.duration}</dd>
+        </div>
+      )}
+    </dl>
+  </div>
+  
+  <!-- Main content -->
+  <Content />
+  
+  <!-- Resources/Links -->
+  {talk.data.links && talk.data.links.length > 0 && (
+    <section class="talk-resources">
+      <h2>Resources</h2>
+      <ul class="resource-list">
+        {talk.data.links.map((link) => (
+          <li>
+            <a href={link.url} class="btn">
+              {link.name} →
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+  
+  <!-- Panelists -->
+  {talk.data.panelists && talk.data.panelists.length > 0 && (
+    <section class="talk-people">
+      <h2>Panelists</h2>
+      <ul class="people-list">
+        {talk.data.panelists.map((person) => (
+          <li>
+            <strong>{person.name}</strong>
+            <span class="text-muted"> — {person.title}</span>
+            {person.role && <span class="tag" style="margin-left: var(--space-2);">{person.role}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+  
+  <!-- Co-presenters -->
+  {talk.data.co_presenters && talk.data.co_presenters.length > 0 && (
+    <section class="talk-people">
+      <h2>Co-Presenters</h2>
+      <ul class="people-list">
+        {talk.data.co_presenters.map((person) => (
+          <li>
+            <strong>{person.name}</strong>
+            <span class="text-muted"> — {person.title}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+  
+  <!-- Hosts -->
+  {talk.data.hosts && talk.data.hosts.length > 0 && (
+    <section class="talk-people">
+      <h2>Hosts</h2>
+      <ul class="people-list">
+        {talk.data.hosts.map((host) => (
+          <li>{host}</li>
+        ))}
+      </ul>
+    </section>
+  )}
+  
+  <!-- Video embed -->
+  {talk.data.video_embed && (
+    <section class="talk-video">
+      <h2>Video</h2>
+      <div class="video-embed" set:html={talk.data.video_embed} />
+    </section>
+  )}
+  
+  <!-- Back link -->
+  <p style="margin-top: var(--space-10);">
+    <a href="/speaking/">← Back to Speaking</a>
+  </p>
+</PostLayout>
+
+<style>
+  .talk-meta-block {
+    background: var(--color-paper-dark);
+    padding: var(--space-4);
+    margin-bottom: var(--space-8);
+    border-left: var(--border-accent);
+  }
+  
+  .talk-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: var(--space-4);
+  }
+  
+  .talk-detail dt {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-1);
+  }
+  
+  .talk-detail dd {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink);
+  }
+  
+  .talk-resources,
+  .talk-people,
+  .talk-video {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: var(--border-thin);
+  }
+  
+  .resource-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  
+  .resource-list li {
+    margin: 0;
+  }
+  
+  .people-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .people-list li {
+    padding: var(--space-2) 0;
+    border-bottom: var(--border-thin);
+  }
+  
+  .people-list li:last-child {
+    border-bottom: 0;
+  }
+  
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+  }
+  
+  .video-embed :global(iframe) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

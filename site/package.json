@@ -1,0 +1,16 @@
+{
+  "name": "chrisbusse-com",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Personal website for Chris Busse - Chief AI Officer, Speaker, Technology Leader",
+  "author": "Chris Busse <chris@chrisbusse.com>",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.17.1"
+  }
+}

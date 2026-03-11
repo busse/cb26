@@ -1,0 +1,2 @@
+Placeholder for Open Graph default image.
+Replace this with an actual og-default.jpg file (recommended size: 1200x630px)

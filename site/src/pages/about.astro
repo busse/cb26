@@ -1,0 +1,346 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import NovelsAside from '../components/NovelsAside.astro';
+import { cv } from '../data/cv';
+import { socials, companies } from '../data/socials';
+---
+
+<PageLayout 
+  title="About" 
+  description={cv.summary}
+>
+  <div class="grid-main-sidebar">
+    <article class="about-content">
+      <header class="page-header">
+        <h1>About</h1>
+        <p class="lead">{cv.summary}</p>
+      </header>
+      
+      <!-- Current Roles -->
+      <section class="about-section">
+        <h2>Current Work</h2>
+        <div class="current-roles">
+          <div class="role-card">
+            <span class="role-label">Primary</span>
+            <h3><a href={companies.singlestone.url}>{companies.singlestone.name}</a></h3>
+            <p class="role-title">{companies.singlestone.role}</p>
+            <p>{companies.singlestone.description}</p>
+          </div>
+          <div class="role-card role-card--alt">
+            <span class="role-label">Independent</span>
+            <h3><a href={companies.eszett.url}>{companies.eszett.name}</a></h3>
+            <p class="role-title">{companies.eszett.role}</p>
+            <p>{companies.eszett.description}</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Speaking Highlights -->
+      <section class="about-section">
+        <h2>Speaking</h2>
+        <p>
+          I've been speaking at conferences, meetups, and podcasts for over 15 years across three continents. 
+          Known for making complex technical concepts accessible, including my signature 
+          <strong>"APIs for Lemonade Stands"</strong> workshop.
+        </p>
+        <ul class="speaking-highlights">
+          {cv.speakingHighlights.map((item) => (
+            <li>
+              <span class="year">{item.year}</span>
+              <span class="event">{item.event}</span>
+              <span class="location">{item.location}</span>
+            </li>
+          ))}
+        </ul>
+        <p><a href="/speaking/" class="btn">View All Speaking →</a></p>
+      </section>
+      
+      <!-- Skills -->
+      <section class="about-section">
+        <h2>Expertise</h2>
+        <div class="skills-grid">
+          {cv.skills.map((skill) => (
+            <div class="skill-block">
+              <h3>{skill.name}</h3>
+              <div class="cluster">
+                {skill.keywords.map((keyword) => (
+                  <span class="tag">{keyword}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+      
+      <!-- Experience Timeline -->
+      <section class="about-section">
+        <h2>Experience</h2>
+        <div class="experience-timeline">
+          {cv.experience.map((job) => (
+            <article class="job">
+              <div class="job-header">
+                <div class="job-dates">{job.startDate}–{job.endDate}</div>
+                <h3 class="job-title">{job.position}</h3>
+                <p class="job-company">
+                  {job.url ? (
+                    <a href={job.url}>{job.company}</a>
+                  ) : (
+                    job.company
+                  )}
+                  <span class="job-location"> · {job.location}</span>
+                </p>
+              </div>
+              <p class="job-summary">{job.summary}</p>
+              {job.highlights.length > 0 && (
+                <ul class="job-highlights">
+                  {job.highlights.map((highlight) => (
+                    <li>{highlight}</li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+      
+      <!-- Contact -->
+      <section class="about-section">
+        <h2>Get in Touch</h2>
+        <p>
+          Best reached via <a href={`mailto:${socials.email}`}>email</a> or 
+          <a href={socials.linkedin.url}>LinkedIn</a>. 
+          For speaking inquiries, please include event details and preferred topics.
+        </p>
+        <div class="cluster" style="margin-top: var(--space-4);">
+          <a href={`mailto:${socials.email}`} class="btn btn--primary">Email Me</a>
+          <a href={socials.linkedin.url} class="btn">LinkedIn</a>
+          <a href={socials.github.url} class="btn">GitHub</a>
+        </div>
+      </section>
+    </article>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar hide-until-desktop">
+      <div class="sidebar-block">
+        <NovelsAside />
+      </div>
+      
+      <div class="sidebar-block">
+        <h3>Quick Facts</h3>
+        <dl class="quick-facts">
+          <dt>Location</dt>
+          <dd>{cv.location}</dd>
+          <dt>Experience</dt>
+          <dd>30 years in technology</dd>
+          <dt>Focus</dt>
+          <dd>APIs, AI, Enterprise Modernization</dd>
+        </dl>
+      </div>
+      
+      <div class="sidebar-block">
+        <h3>Elsewhere</h3>
+        <ul class="elsewhere-links">
+          <li><a href={socials.linkedin.url}>LinkedIn</a></li>
+          <li><a href={socials.github.url}>GitHub</a></li>
+          <li><a href={socials.threads.url}>Threads</a></li>
+          <li><a href={socials.substack.url}>Full Backlog (Substack)</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</PageLayout>
+
+<style>
+  .about-content {
+    min-width: 0;
+  }
+  
+  .about-section {
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: var(--border-thin);
+  }
+  
+  .about-section:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+  
+  .about-section h2 {
+    margin-top: 0;
+  }
+  
+  /* Current Roles */
+  .current-roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-4);
+  }
+  
+  .role-card {
+    padding: var(--space-4);
+    background: var(--color-paper-dark);
+    border-left: var(--border-accent);
+  }
+  
+  .role-card--alt {
+    border-left-color: var(--color-ink);
+  }
+  
+  .role-label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  
+  .role-card--alt .role-label {
+    color: var(--color-ink-muted);
+  }
+  
+  .role-card h3 {
+    font-size: var(--font-size-lg);
+    margin: var(--space-2) 0 0;
+  }
+  
+  .role-title {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-2);
+  }
+  
+  .role-card p:last-child {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-light);
+    margin-bottom: 0;
+  }
+  
+  /* Speaking Highlights */
+  .speaking-highlights {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-4) 0;
+  }
+  
+  .speaking-highlights li {
+    display: grid;
+    grid-template-columns: 4rem 1fr auto;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    border-bottom: var(--border-thin);
+    font-size: var(--font-size-sm);
+  }
+  
+  .speaking-highlights .year {
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+  
+  .speaking-highlights .location {
+    color: var(--color-ink-muted);
+  }
+  
+  /* Skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-4);
+  }
+  
+  .skill-block h3 {
+    font-size: var(--font-size-base);
+    font-family: var(--font-body);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    margin-top: 0;
+  }
+  
+  /* Experience Timeline */
+  .experience-timeline {
+    margin-top: var(--space-6);
+  }
+  
+  .job {
+    padding: var(--space-6) 0;
+    border-bottom: var(--border-thin);
+  }
+  
+  .job:last-child {
+    border-bottom: 0;
+  }
+  
+  .job-dates {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: var(--space-1);
+  }
+  
+  .job-title {
+    font-size: var(--font-size-lg);
+    margin: 0 0 var(--space-1);
+  }
+  
+  .job-company {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-3);
+  }
+  
+  .job-location {
+    color: var(--color-ink-muted);
+  }
+  
+  .job-summary {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-light);
+    margin-bottom: var(--space-3);
+  }
+  
+  .job-highlights {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-light);
+    padding-left: var(--space-5);
+    margin: 0;
+  }
+  
+  .job-highlights li {
+    margin-bottom: var(--space-1);
+  }
+  
+  /* Sidebar */
+  .quick-facts {
+    font-size: var(--font-size-sm);
+  }
+  
+  .quick-facts dt {
+    font-weight: 600;
+    color: var(--color-ink-muted);
+    margin-top: var(--space-2);
+  }
+  
+  .quick-facts dt:first-child {
+    margin-top: 0;
+  }
+  
+  .quick-facts dd {
+    margin-left: 0;
+  }
+  
+  .elsewhere-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .elsewhere-links li {
+    margin-bottom: var(--space-2);
+  }
+  
+  .elsewhere-links a {
+    font-size: var(--font-size-sm);
+  }
+</style>
