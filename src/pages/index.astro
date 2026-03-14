@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThreeColumnLayout from "../layouts/ThreeColumnLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import Ornament from "../components/Ornament.astro";
+
+const posts = (await getCollection("posts"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 7);
+---
+
+<BaseLayout title="Home">
+  <ThreeColumnLayout>
+    <section class="stack-spacious">
+      <header>
+        <h1>I use creativity to guide business, product, and technology leaders through complex high-risk enterprise change journeys.</h1>
+        <p class="lead-text">
+          Currently leading Enterprise Client Solutions and AI at SingleStone.
+          Founder of Eszett. International speaker at SXSW, Nordic APIs, Twilio
+          SIGNAL, and more. Based in Richmond, Virginia.
+        </p>
+      </header>
+      <Ornament />
+      {posts.map((post) => <PostCard post={post} />)}
+    </section>
+  </ThreeColumnLayout>
+</BaseLayout>

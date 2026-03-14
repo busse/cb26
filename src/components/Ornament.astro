@@ -1,0 +1,9 @@
+---
+interface Props {
+  glyph?: string;
+}
+
+const { glyph = "❧" } = Astro.props;
+---
+
+<p class="ornament" aria-hidden="true">{glyph} {glyph} {glyph}</p>

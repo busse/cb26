@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TagList from "../components/TagList.astro";
+import Ornament from "../components/Ornament.astro";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  readingTime: number;
+  prevPost?: CollectionEntry<"posts">;
+  nextPost?: CollectionEntry<"posts">;
+}
+
+const { post, readingTime, prevPost, nextPost } = Astro.props;
+const dateText = post.data.date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<article class="post-body">
+  <header class="reading-header">
+    <h1>{post.data.title}</h1>
+    <p class="meta-text">{dateText} · {readingTime} min read{post.data.category && <> · <a class="category-label" href={`/category/${encodeURIComponent(post.data.category.toLowerCase())}`}>{post.data.category}</a></>}</p>
+    {post.data.tags.length > 0 && <TagList tags={post.data.tags} />}
+  </header>
+
+  <slot />
+
+  <Ornament glyph="✶" />
+
+  <nav class="stack-compact meta-text" aria-label="Post navigation">
+    {prevPost && <p>← <a href={`/posts/${prevPost.id}`}>{prevPost.data.title}</a></p>}
+    {nextPost && <p>→ <a href={`/posts/${nextPost.id}`}>{nextPost.data.title}</a></p>}
+  </nav>
+</article>

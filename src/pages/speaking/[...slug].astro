@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ThreeColumnLayout from "../../layouts/ThreeColumnLayout.astro";
+import TagList from "../../components/TagList.astro";
+
+export async function getStaticPaths() {
+  const talks = await getCollection("talks");
+  return talks.map((talk) => ({ params: { slug: talk.id }, props: { talk } }));
+}
+
+const { talk } = Astro.props;
+const { Content } = await render(talk);
+---
+
+<BaseLayout title={talk.data.title}>
+  <ThreeColumnLayout>
+    <article>
+      <h1>{talk.data.title}</h1>
+      <p class="meta-text">
+        {talk.data.event} · {talk.data.location} ·
+        {talk.data.date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+      </p>
+      <p>{talk.data.description}</p>
+      <Content />
+      {talk.data.tags?.length > 0 && <TagList tags={talk.data.tags} />}
+    </article>
+  </ThreeColumnLayout>
+</BaseLayout>

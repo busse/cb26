@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ThreeColumnLayout from "../../layouts/ThreeColumnLayout.astro";
+
+const now = new Date();
+const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+const allTalks = (await getCollection("talks")).sort(
+  (a, b) => a.data.date.getTime() - b.data.date.getTime(),
+);
+
+const upcomingTalks = allTalks.filter((talk) => talk.data.date >= today);
+const pastTalks = allTalks.filter((talk) => talk.data.date < today).reverse();
+---
+
+<BaseLayout title="Speaking">
+  <ThreeColumnLayout>
+    <h1>Speaking</h1>
+
+    {upcomingTalks.length > 0 && (
+      <section>
+        <h2>Upcoming Talks</h2>
+        <ul>
+          {upcomingTalks.map((talk) => (
+            <li>
+              <a href={`/speaking/${talk.id}`}>{talk.data.title}</a>
+              <div class="meta-text">
+                {talk.data.event} ·{" "}
+                {talk.data.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}{" "}
+                · {talk.data.location}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {pastTalks.length > 0 && (
+      <section>
+        <h2>Speaking History</h2>
+        <ul class="tombstone-grid">
+          {pastTalks.map((talk) => (
+            <li class="tombstone">
+              <p class="tombstone-event">{talk.data.event}</p>
+              <hr />
+              <p class="tombstone-title">
+                <a href={`/speaking/${talk.id}`}>{talk.data.title}</a>
+              </p>
+              <p class="tombstone-meta">
+                {talk.data.location}<br />
+                {talk.data.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                })}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {pastTalks.length > 0 && (
+      <section>
+        <h2>Past Talks</h2>
+        <ul>
+          {pastTalks.map((talk) => (
+            <li>
+              <a href={`/speaking/${talk.id}`}>{talk.data.title}</a>
+              <div class="meta-text">
+                {talk.data.event} ·{" "}
+                {talk.data.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}{" "}
+                · {talk.data.location}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </ThreeColumnLayout>
+</BaseLayout>

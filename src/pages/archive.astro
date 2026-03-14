@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThreeColumnLayout from "../layouts/ThreeColumnLayout.astro";
+
+const posts = (await getCollection("posts"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const grouped = Object.entries(
+  posts.reduce<Record<string, typeof posts>>((acc, post) => {
+    const year = String(post.data.date.getFullYear());
+    acc[year] ??= [];
+    acc[year].push(post);
+    return acc;
+  }, {}),
+).sort(([a], [b]) => Number(b) - Number(a));
+---
+
+<BaseLayout title="Archive">
+  <ThreeColumnLayout>
+    <h1>Archive</h1>
+    {
+      grouped.map(([year, yearPosts]) => (
+        <section id={`year-${year}`}>
+          <h2>{year}</h2>
+          <ul>
+            {yearPosts.map((post) => (
+              <li>
+                <a href={`/posts/${post.id}`}>{post.data.title}</a>{" "}
+                <span class="meta-text">
+                  ({post.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric" })})
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </ThreeColumnLayout>
+</BaseLayout>

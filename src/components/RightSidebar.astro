@@ -1,0 +1,67 @@
+---
+import { getCollection } from "astro:content";
+import { blogroll } from "../data/blogroll";
+import { siteConfig, socialLinks } from "../data/site";
+
+const now = new Date();
+const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+const allTalks = (await getCollection("talks")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const upcomingTalks = allTalks.filter((t) => t.data.date >= today);
+const recentTalks = allTalks.filter((t) => t.data.date < today).slice(0, 5);
+---
+
+<aside class="right-rail column-rule">
+  <div class="sidebar-block">
+    <p class="section-label">About</p>
+    <p class="lead-text">
+      I use creativity to guide leaders through complex enterprise change.
+      Currently at SingleStone and Eszett. Based in {siteConfig.location}.
+    </p>
+  </div>
+
+  {upcomingTalks.length > 0 && (
+    <div class="sidebar-block sidebar-talks">
+      <p class="section-label">Upcoming Talks</p>
+      <ul class="talks-list">
+        {upcomingTalks.map((talk) => (
+          <li>
+            <a href={`/speaking/${talk.id}`}>{talk.data.title}</a>
+            <span class="talk-detail">{talk.data.event} · {talk.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  {recentTalks.length > 0 && (
+    <div class="sidebar-block sidebar-talks">
+      <p class="section-label">Recent Talks</p>
+      <ul class="talks-list">
+        {recentTalks.map((talk) => (
+          <li>
+            <a href={`/speaking/${talk.id}`}>{talk.data.title}</a>
+            <span class="talk-detail">{talk.data.event} · {talk.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <div class="sidebar-block">
+    <p class="section-label">Elsewhere</p>
+    <ul class="blogroll-list">
+      {socialLinks.map((link) => <li><a href={link.href} rel={link.rel}>{link.label}</a></li>)}
+    </ul>
+  </div>
+
+  <div class="sidebar-block">
+    <p class="section-label">Blogroll</p>
+    <ul class="blogroll-list">
+      {blogroll.map((item) => <li><a href={item.url}>{item.name}</a></li>)}
+    </ul>
+  </div>
+</aside>

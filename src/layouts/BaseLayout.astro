@@ -1,0 +1,55 @@
+---
+import "../styles/global.css";
+import "../styles/layout.css";
+import "../styles/components.css";
+import "../styles/print.css";
+import { siteConfig } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  type?: "website" | "article";
+}
+
+const { title, description = siteConfig.description, type = "website" } = Astro.props;
+const pageTitle = title ? `${title} | ${siteConfig.title}` : siteConfig.title;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="author" content={siteConfig.author} />
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Rokkitt:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={siteConfig.title} />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <link rel="alternate" type="application/rss+xml" title={siteConfig.title} href="/rss.xml" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <slot />
+    <script src="https://player.vimeo.com/api/player.js"></script>
+  </body>
+</html>

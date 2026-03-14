@@ -1,0 +1,255 @@
+.masthead {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.masthead a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.masthead a:visited {
+  color: inherit;
+}
+
+.masthead-tagline {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-style: italic;
+  color: var(--color-secondary);
+}
+
+.top-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+}
+
+.sidebar-block + .sidebar-block {
+  margin-top: var(--space-8);
+}
+
+.section-label {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.sidebar-nav-list,
+.archive-list,
+.blogroll-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.sidebar-nav-list li,
+.archive-list li,
+.blogroll-list li {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+}
+
+.sidebar-talks {
+  background: #fef9e7;
+  padding: var(--space-4);
+  border: 1px solid #f5e6a3;
+}
+
+.talks-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.talks-list li {
+  margin-bottom: var(--space-3);
+  font-size: var(--step--1);
+  line-height: 1.4;
+}
+
+.talks-list li:last-child {
+  margin-bottom: 0;
+}
+
+.talks-list a {
+  display: block;
+}
+
+.talk-detail {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tag {
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  white-space: nowrap;
+}
+
+.post-card {
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.post-card-title {
+  margin-bottom: var(--space-2);
+  font-size: var(--step-2);
+}
+
+.post-card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-card-title a:hover {
+  text-decoration: underline;
+}
+
+.post-card-title a:visited {
+  color: inherit;
+}
+
+.post-card-meta {
+  margin-bottom: var(--space-3);
+}
+
+.category-label {
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.category-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.category-list li {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  text-transform: capitalize;
+}
+
+.ornament {
+  margin: var(--space-10) 0;
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  color: var(--color-muted);
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+.reading-header {
+  margin-bottom: var(--space-8);
+}
+
+.reading-header h1 {
+  margin-bottom: var(--space-3);
+}
+
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+  position: relative;
+}
+
+.anchor-link {
+  margin-left: var(--space-2);
+  opacity: 0;
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  text-decoration: none;
+}
+
+.post-body :is(h2, h3, h4):hover .anchor-link {
+  opacity: 1;
+}
+
+.tombstone-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-8);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tombstone {
+  border: 3px double var(--color-text);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tombstone-event {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.tombstone hr {
+  width: 3rem;
+  margin: 0 auto var(--space-4);
+  border: 0;
+  border-top: 1px solid var(--color-rule);
+}
+
+.tombstone-title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: 1.2;
+}
+
+.tombstone-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tombstone-title a:visited {
+  color: inherit;
+}
+
+.tombstone-title a:hover {
+  text-decoration: underline;
+}
+
+.tombstone-meta {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 48rem) {
+  .tombstone-grid {
+    grid-template-columns: 1fr;
+  }
+}

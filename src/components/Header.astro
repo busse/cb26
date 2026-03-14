@@ -1,0 +1,17 @@
+---
+import { primaryNav, siteConfig } from "../data/site";
+---
+
+<header class="site-header">
+  <div class="masthead-group">
+    <h1 class="masthead"><a href="/">Chris Busse</a></h1>
+    <p class="masthead-tagline">{siteConfig.tagline}</p>
+  </div>
+  <nav class="top-nav" aria-label="Primary">
+    {
+      primaryNav.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))
+    }
+  </nav>
+</header>

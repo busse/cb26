@@ -1,0 +1,34 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ThreeColumnLayout from "../../layouts/ThreeColumnLayout.astro";
+import PostLayout from "../../layouts/PostLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("posts"))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      prevPost: posts[index + 1],
+      nextPost: posts[index - 1],
+    },
+  }));
+}
+
+const { post, prevPost, nextPost } = Astro.props;
+const { Content } = await render(post);
+const wordCount = post.body.split(/\s+/).length;
+const readingTime = Math.max(1, Math.round(wordCount / 230));
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} type="article">
+  <ThreeColumnLayout>
+    <PostLayout post={post} readingTime={readingTime} prevPost={prevPost} nextPost={nextPost}>
+      <Content />
+    </PostLayout>
+  </ThreeColumnLayout>
+</BaseLayout>

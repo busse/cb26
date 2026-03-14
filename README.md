@@ -1,27 +1,22 @@
 # cb26
 
-Personal portfolio site for Chris Busse - 2026 edition.
+Clean Astro "hello world" reset at the repo root.
 
 ## Status
 
-🔄 **Starting fresh** - Previous approach archived.
+The main repo area is now a fresh out-of-the-box Astro starter.
 
-## Archive
+## Archives
 
-The `archive-pass0/` directory contains content from the first attempt using al-folio Jekyll theme:
+- `archive-pass0/` keeps the first archived snapshot from the original Jekyll/al-folio work.
+- `archive-pass1/` keeps the second archived snapshot, including:
+  - root Jekyll content (`_talks`, `_news`, `_projects`, `_pages`, `_site`, etc.)
+  - previous Astro app (`site/`)
+  - editor app (`editor/`)
+  - prior root `README.md`
 
-- `_talks/` - 15 speaking engagement files (2010-2024)
-- `_news/` - News/announcement items
-- `_projects/` - Project descriptions (API Craft RVA, Capital One DevExchange, Twilio)
-- `_pages/` - About page and talks landing page
-- `_layouts/` - Custom talk layout
-- `_data/` - CV data and social links
-- `_posts/` - Blog post
-- `assets/` - Resume JSON
-- `_config.yml` - Jekyll configuration
+## Commands
 
-This content can be referenced or migrated to a new approach.
-
-## Next Steps
-
-Ready for new instructions.
+- `npm run dev` - start local dev server at `http://localhost:4321`
+- `npm run build` - build production output
+- `npm run preview` - preview production build locally

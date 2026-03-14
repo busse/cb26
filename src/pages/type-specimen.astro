@@ -1,0 +1,391 @@
+---
+const options = [
+  {
+    id: "option-1",
+    name: "Option 1: Editorial Classic",
+    stack: "Cormorant Garamond + Source Sans 3 + IBM Plex Mono",
+    displayVar: "--display-1",
+    bodyVar: "--body-1",
+    uiVar: "--ui-1",
+    codeVar: "--code-1",
+  },
+  {
+    id: "option-2",
+    name: "Option 2: Modern Newsroom",
+    stack: "Spectral + Public Sans + IBM Plex Mono",
+    displayVar: "--display-2",
+    bodyVar: "--body-2",
+    uiVar: "--ui-2",
+    codeVar: "--code-2",
+  },
+  {
+    id: "option-3",
+    name: "Option 3: Literary Journal",
+    stack: "EB Garamond + Work Sans + IBM Plex Mono",
+    displayVar: "--display-3",
+    bodyVar: "--body-3",
+    uiVar: "--ui-3",
+    codeVar: "--code-3",
+  },
+  {
+    id: "option-4",
+    name: "Option 4: High-Contrast Contemporary",
+    stack: "Bodoni Moda + Manrope + IBM Plex Mono",
+    displayVar: "--display-4",
+    bodyVar: "--body-4",
+    uiVar: "--ui-4",
+    codeVar: "--code-4",
+  },
+  {
+    id: "option-5",
+    name: "Option 5: Humanist Bookish",
+    stack: "Alegreya + Source Sans 3 + IBM Plex Mono",
+    displayVar: "--display-5",
+    bodyVar: "--body-5",
+    uiVar: "--ui-5",
+    codeVar: "--code-5",
+  },
+  {
+    id: "option-6",
+    name: "Option 6: Rokkit Headline",
+    stack: "Rokkitt + Spectral + IBM Plex Mono",
+    displayVar: "--display-6",
+    bodyVar: "--body-6",
+    uiVar: "--ui-6",
+    codeVar: "--code-6",
+  },
+  {
+    id: "option-7",
+    name: "Option 7: Honk + Tourney",
+    stack: "Honk + Spectral + IBM Plex Mono (Tourney quotes)",
+    displayVar: "--display-7",
+    bodyVar: "--body-7",
+    uiVar: "--ui-7",
+    quoteVar: "--quote-7",
+    codeVar: "--code-7",
+  },
+  {
+    id: "option-8",
+    name: "Option 8: Rokkit + Roboto",
+    stack: "Rokkitt + Roboto + Roboto Mono",
+    displayVar: "--display-8",
+    bodyVar: "--body-8",
+    uiVar: "--ui-8",
+    codeVar: "--code-8",
+  },
+  {
+    id: "option-9",
+    name: "Option 9: Rokkit + Spectral + Roboto Mono",
+    stack: "Rokkitt + Spectral + Roboto Mono",
+    displayVar: "--display-9",
+    bodyVar: "--body-9",
+    uiVar: "--ui-9",
+    codeVar: "--code-9",
+  },
+];
+
+const topOptionOrder = ["option-9", "option-6", "option-8"];
+const topOptions = topOptionOrder
+  .map((id) => options.find((option) => option.id === id))
+  .filter(Boolean);
+const topOptionIds = new Set(topOptionOrder);
+const remainingOptions = options.filter((option) => !topOptionIds.has(option.id));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Type Specimen | Chris Busse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=Honk&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;700&family=Public+Sans:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Roboto:wght@400;500;700&family=Rokkitt:wght@400;500;700&family=Source+Sans+3:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;0,700;1,400&family=Tourney:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --display-1: "Cormorant Garamond", Georgia, serif;
+        --body-1: "Cormorant Garamond", Georgia, serif;
+        --ui-1: "Source Sans 3", sans-serif;
+        --code-1: "IBM Plex Mono", monospace;
+
+        --display-2: "Spectral", Georgia, serif;
+        --body-2: "Spectral", Georgia, serif;
+        --ui-2: "Public Sans", sans-serif;
+        --code-2: "IBM Plex Mono", monospace;
+
+        --display-3: "EB Garamond", Georgia, serif;
+        --body-3: "EB Garamond", Georgia, serif;
+        --ui-3: "Work Sans", sans-serif;
+        --code-3: "IBM Plex Mono", monospace;
+
+        --display-4: "Bodoni Moda", Georgia, serif;
+        --body-4: "Manrope", sans-serif;
+        --ui-4: "Manrope", sans-serif;
+        --code-4: "IBM Plex Mono", monospace;
+
+        --display-5: "Alegreya", Georgia, serif;
+        --body-5: "Alegreya", Georgia, serif;
+        --ui-5: "Source Sans 3", sans-serif;
+        --code-5: "IBM Plex Mono", monospace;
+
+        --display-6: "Rokkitt", Georgia, serif;
+        --body-6: "Spectral", Georgia, serif;
+        --ui-6: "IBM Plex Mono", monospace;
+        --code-6: "IBM Plex Mono", monospace;
+
+        --display-7: "Honk", "Arial Black", sans-serif;
+        --body-7: "Spectral", Georgia, serif;
+        --ui-7: "IBM Plex Mono", monospace;
+        --quote-7: "Tourney", "Arial Black", sans-serif;
+        --code-7: "IBM Plex Mono", monospace;
+
+        --display-8: "Rokkitt", Georgia, serif;
+        --body-8: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ui-8: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --code-8: "Roboto Mono", "IBM Plex Mono", monospace;
+
+        --display-9: "Rokkitt", Georgia, serif;
+        --body-9: "Spectral", Georgia, serif;
+        --ui-9: "Roboto Mono", "IBM Plex Mono", monospace;
+        --code-9: "Roboto Mono", "IBM Plex Mono", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 2rem;
+        color: #111;
+        background: #fff;
+      }
+
+      .sheet {
+        width: min(72rem, 100%);
+        margin: 0 auto;
+      }
+
+      .sheet h1 {
+        margin: 0 0 0.75rem;
+        font: 700 2.5rem/1.1 "IBM Plex Mono", monospace;
+      }
+
+      .sheet > p {
+        margin: 0 0 2.5rem;
+        font: 500 1rem/1.4 "IBM Plex Mono", monospace;
+        color: #444;
+      }
+
+      .specimen {
+        border-top: 1px solid #ccc;
+        padding: 2.5rem 0 3rem;
+      }
+
+      .top-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+        margin: 1rem 0 3rem;
+      }
+
+      .specimen-top {
+        border: 1px solid #ccc;
+        padding: 1.1rem;
+      }
+
+      .specimen-top .title {
+        font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+      }
+
+      .specimen-top .dek {
+        font-size: 1.08rem;
+      }
+
+      .specimen-top .body {
+        font-size: 1rem;
+      }
+
+      .kicker {
+        margin: 0 0 0.35rem;
+        font-family: var(--ui);
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #444;
+      }
+
+      .stack {
+        margin: 0 0 0.8rem;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.86rem;
+        color: #555;
+      }
+
+      .title {
+        margin: 0 0 0.8rem;
+        font-family: var(--display);
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
+        font-weight: 700;
+        line-height: 1.08;
+        max-width: 16ch;
+      }
+
+      .meta {
+        margin: 0 0 1rem;
+        font-family: var(--ui);
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      .dek,
+      .body {
+        margin: 0 0 1rem;
+        max-width: 62ch;
+        font-family: var(--body);
+      }
+
+      .dek {
+        font-size: 1.28rem;
+        line-height: 1.45;
+      }
+
+      .body {
+        font-size: 1.16rem;
+        line-height: 1.62;
+      }
+
+      .quote {
+        margin: 1.3rem 0 0;
+        padding-left: 1rem;
+        border-left: 1px solid #ccc;
+        max-width: 50ch;
+        font-family: var(--quote, var(--display));
+        font-size: 1.25rem;
+        font-style: italic;
+      }
+
+      .code-label {
+        margin: 1.2rem 0 0.35rem;
+        font-family: var(--ui);
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #555;
+      }
+
+      .code-block {
+        margin: 0;
+        padding: 0.9rem 1rem;
+        border: 1px solid #ccc;
+        background: #fafafa;
+        overflow-x: auto;
+        max-width: 68ch;
+      }
+
+      .code-block code {
+        font-family: var(--code, "IBM Plex Mono", monospace);
+        font-size: 0.92rem;
+        line-height: 1.45;
+      }
+
+      .glyph {
+        margin-left: 0.3rem;
+      }
+
+      a {
+        color: #0000ee;
+      }
+
+      a:visited {
+        color: #551a8b;
+      }
+
+      @media (max-width: 56rem) {
+        .top-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="sheet">
+      <h1>Type Specimen</h1>
+      <p>Eight alternate systems for headline, body, UI text, and code.</p>
+
+      <section class="top-grid" aria-label="Featured comparison: options 2, 6, and 8">
+        {
+          topOptions.map((option) => (
+            <section
+              id={`${option.id}-top`}
+              class="specimen-top"
+              style={`--display:${option.displayVar ? `var(${option.displayVar})` : ""};--body:${option.bodyVar ? `var(${option.bodyVar})` : ""};--ui:${option.uiVar ? `var(${option.uiVar})` : ""};--quote:${option.quoteVar ? `var(${option.quoteVar})` : ""};--code:${option.codeVar ? `var(${option.codeVar})` : ""};`}
+            >
+              <p class="kicker">{option.name}</p>
+              <p class="stack">{option.stack}</p>
+              <h2 class="title">Clean, bold, readable, memorable <span class="glyph">❧</span></h2>
+              <p class="meta">March 11, 2026 · 8 min read · <a href="#">Permalink</a></p>
+              <p class="dek">
+                Synth pitchfork 3 wolf moon tote bag, banjo la croix vibecession cloud bread post-ironic.
+                Flexitarian helvetica cardigan chambray.
+              </p>
+              <p class="body">
+                Ennui chartreuse seitan skateboard, gatekeep celiac tousled blue bottle church-key palo santo.
+                Prism marfa put a bird on it, DIY truffaut franzen scenester direct trade yes plz adaptogen.
+              </p>
+              <p class="quote">“Typography is structure, not decoration.”</p>
+              <p class="code-label">Code Sample · JavaScript</p>
+              <pre class="code-block"><code>{`const readingTime = Math.max(1, Math.round(wordCount / 230));
+
+export function formatDate(date) {
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}`}</code></pre>
+            </section>
+          ))
+        }
+      </section>
+
+      {
+        remainingOptions.map((option) => (
+          <section
+            id={option.id}
+            class="specimen"
+            style={`--display:${option.displayVar ? `var(${option.displayVar})` : ""};--body:${option.bodyVar ? `var(${option.bodyVar})` : ""};--ui:${option.uiVar ? `var(${option.uiVar})` : ""};--quote:${option.quoteVar ? `var(${option.quoteVar})` : ""};--code:${option.codeVar ? `var(${option.codeVar})` : ""};`}
+          >
+            <p class="kicker">{option.name}</p>
+            <p class="stack">{option.stack}</p>
+            <h2 class="title">Clean, bold, readable, memorable <span class="glyph">❧</span></h2>
+            <p class="meta">March 11, 2026 · 8 min read · <a href="#">Permalink</a></p>
+            <p class="dek">
+              Synth pitchfork 3 wolf moon tote bag, banjo la croix vibecession cloud bread post-ironic.
+              Flexitarian helvetica cardigan chambray.
+            </p>
+            <p class="body">
+              Ennui chartreuse seitan skateboard, gatekeep celiac tousled blue bottle church-key palo santo.
+              Prism marfa put a bird on it, DIY truffaut franzen scenester direct trade yes plz adaptogen.
+              Activated charcoal bitters wayfarers sustainable wolf, bespoke salvia austin banjo.
+            </p>
+            <p class="quote">“Typography is structure, not decoration.”</p>
+            <p class="code-label">Code Sample · JavaScript</p>
+            <pre class="code-block"><code>{`const readingTime = Math.max(1, Math.round(wordCount / 230));
+
+export function formatDate(date) {
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}`}</code></pre>
+          </section>
+        ))
+      }
+    </main>
+  </body>
+</html>
