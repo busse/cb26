@@ -6,6 +6,11 @@ tags: ["ai", "devops", "engineering", "history"]
 featured: true
 draft: false
 category: "essay"
+ai:
+  assisted: true
+  tools: ["Claude"]
+  role: "pair-writing"
+  process: "Collaborative essay developed through iterative conversation between human and AI, with the human providing the thesis and editorial direction."
 ---
 
 There's a pattern in software engineering that nobody talks about enough. We had something good, we made it complicated, and now AI is giving it back to us.

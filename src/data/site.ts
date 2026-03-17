@@ -1,7 +1,7 @@
 export const siteConfig = {
   title: "Chris Busse",
   author: "Chris Busse",
-  tagline: "Guiding leaders through complex enterprise change",
+  tagline: "Guiding leaders & organizations through complex change journeys",
   description: "A content-heavy personal professional writing site by Chris Busse.",
   siteUrl: "https://www.chrisbusse.com",
   location: "Richmond, Virginia",

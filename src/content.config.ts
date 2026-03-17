@@ -12,6 +12,12 @@ const posts = defineCollection({
     draft: z.boolean().default(false),
     category: z.string().optional(),
     image: z.string().optional(),
+    ai: z.object({
+      assisted: z.boolean(),
+      tools: z.array(z.string()).default([]),
+      role: z.enum(["research", "drafting", "editing", "pair-writing"]).optional(),
+      process: z.string().optional(),
+    }).default({ assisted: false, tools: [] }),
   }),
 });
 

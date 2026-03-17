@@ -30,7 +30,7 @@ const recentTalks = allTalks.filter((t) => t.data.date < today).slice(0, 5);
         {upcomingTalks.map((talk) => (
           <li>
             <a href={`/speaking/${talk.id}`}>{talk.data.title}</a>
-            <span class="talk-detail">{talk.data.event} · {talk.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+            <span class="talk-detail">{talk.data.event} · {talk.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}</span>
           </li>
         ))}
       </ul>
@@ -44,7 +44,7 @@ const recentTalks = allTalks.filter((t) => t.data.date < today).slice(0, 5);
         {recentTalks.map((talk) => (
           <li>
             <a href={`/speaking/${talk.id}`}>{talk.data.title}</a>
-            <span class="talk-detail">{talk.data.event} · {talk.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+            <span class="talk-detail">{talk.data.event} · {talk.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}</span>
           </li>
         ))}
       </ul>

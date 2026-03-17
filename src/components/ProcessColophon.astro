@@ -1,0 +1,26 @@
+---
+interface Props {
+  tools: string[];
+  role?: "research" | "drafting" | "editing" | "pair-writing";
+  process?: string;
+}
+
+const { tools, role, process } = Astro.props;
+
+const roleDescriptions: Record<string, string> = {
+  research: "AI-assisted research",
+  drafting: "AI-assisted drafting",
+  editing: "AI-assisted editing",
+  "pair-writing": "AI pair-written",
+};
+
+const toolList = tools.join(" + ");
+const roleLabel = role ? roleDescriptions[role] : "AI-assisted";
+const defaultProcess = `This ${role === "research" ? "article's research was conducted" : "article was developed"} with ${toolList}. The final text, structure, and editorial judgments are the author's responsibility.`;
+---
+
+<aside class="process-colophon" aria-label="Process disclosure">
+  <p class="section-label">Process</p>
+  <p>{process || defaultProcess}</p>
+  <p class="process-tools">{roleLabel} with {toolList} · <a href="/about#on-process">About my process</a></p>
+</aside>

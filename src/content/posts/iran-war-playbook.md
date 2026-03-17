@@ -9,6 +9,11 @@ tags:
 featured: true
 draft: false
 category: "analysis"
+ai:
+  assisted: true
+  tools: ["Claude"]
+  role: "drafting"
+  process: "Iterative collaboration: AI conducted web research and drafted text across multiple rounds; human directed the analytical arc, posed framing questions, and shaped the argument."
 ---
 
 **A Point-in-Time Comparative Analysis of Pre-War Planning Documents and the Operational Sequence of Operation Epic Fury**

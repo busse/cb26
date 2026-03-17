@@ -29,7 +29,7 @@ const grouped = Object.entries(
               <li>
                 <a href={`/posts/${post.id}`}>{post.data.title}</a>{" "}
                 <span class="meta-text">
-                  ({post.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric" })})
+                  ({post.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })})
                 </span>
               </li>
             ))}

@@ -11,12 +11,15 @@ const dateText = post.data.date.toLocaleDateString("en-US", {
   year: "numeric",
   month: "long",
   day: "numeric",
+  timeZone: "UTC",
 });
+const ai = post.data.ai;
+const aiLabel = ai.assisted && ai.tools.length > 0 ? ai.tools.join(" + ") : null;
 ---
 
 <article class="post-card">
   <h2 class="post-card-title"><a href={`/posts/${post.id}`}>{post.data.title}</a></h2>
-  <p class="meta-text post-card-meta">{dateText}{post.data.category && <> · <a class="category-label" href={`/category/${encodeURIComponent(post.data.category.toLowerCase())}`}>{post.data.category}</a></>}</p>
+  <p class="meta-text post-card-meta">{dateText}{post.data.category && <> · <a class="category-label" href={`/category/${encodeURIComponent(post.data.category.toLowerCase())}`}>{post.data.category}</a></>}{aiLabel && <> · with {aiLabel}</>}</p>
   <p>{post.data.description}</p>
   {post.data.tags.length > 0 && <TagList tags={post.data.tags} />}
 </article>

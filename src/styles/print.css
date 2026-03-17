@@ -53,4 +53,12 @@
     orphans: 3;
     widows: 3;
   }
+
+  .process-colophon {
+    border-left: 2pt solid #999999;
+    background: none;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    page-break-inside: avoid;
+  }
 }
