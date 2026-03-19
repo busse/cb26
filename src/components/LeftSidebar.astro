@@ -1,11 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import { primaryNav } from "../data/site";
 
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const talks = await getCollection("talks");
 
 const years = [...new Set(posts.map((post) => String(post.data.date.getFullYear())))];
 const categories = [...new Set(
@@ -14,31 +12,9 @@ const categories = [...new Set(
     .filter((c): c is string => Boolean(c))
     .map((c) => c.toLowerCase()),
 )].sort();
-const tags = [...new Set([
-  ...posts.flatMap((post) => post.data.tags),
-  ...talks.flatMap((talk) => talk.data.tags),
-].map((tag) => tag.toLowerCase()))].sort();
 ---
 
 <aside class="left-rail">
-  <div class="sidebar-block">
-    <p class="section-label">Navigation</p>
-    <ul class="sidebar-nav-list">
-      {
-        primaryNav.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
-        ))
-      }
-    </ul>
-  </div>
-
-  <div class="sidebar-block archive-list">
-    <p class="section-label">Archive</p>
-    <ul class="archive-list">
-      {years.map((year) => <li><a href={`/archive#year-${year}`}>{year}</a></li>)}
-    </ul>
-  </div>
-
   {categories.length > 0 && (
     <div class="sidebar-block">
       <p class="section-label">Categories</p>
@@ -48,10 +24,10 @@ const tags = [...new Set([
     </div>
   )}
 
-  <div class="sidebar-block tag-cloud">
-    <p class="section-label">Tags</p>
-    <div class="tag-cloud">
-      {tags.map((tag) => <a class="tag" href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>)}
-    </div>
+  <div class="sidebar-block archive-list">
+    <p class="section-label">Archive</p>
+    <ul class="archive-list">
+      {years.map((year) => <li><a href={`/archive#year-${year}`}>{year}</a></li>)}
+    </ul>
   </div>
 </aside>
