@@ -19,13 +19,12 @@ const dateText = post.data.date.toLocaleDateString("en-US", {
   timeZone: "UTC",
 });
 const ai = post.data.ai;
-const aiLabel = ai.assisted && ai.tools.length > 0 ? ai.tools.join(" + ") : null;
 ---
 
 <article class="post-body">
   <header class="reading-header">
     <h1>{post.data.title}</h1>
-    <p class="meta-text">{dateText} · {readingTime} min read{post.data.category && <> · <a class="category-label" href={`/category/${encodeURIComponent(post.data.category.toLowerCase())}`}>{post.data.category}</a></>}{aiLabel && <> · with {aiLabel}</>}</p>
+    <p class="meta-text">{dateText} · {readingTime} min read{post.data.category && <> · <a class="category-label" href={`/category/${encodeURIComponent(post.data.category.toLowerCase())}`}>{post.data.category}</a></>}</p>
     {post.data.tags.length > 0 && <TagList tags={post.data.tags} />}
   </header>
 

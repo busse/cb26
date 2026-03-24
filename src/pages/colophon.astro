@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThreeColumnLayout from "../layouts/ThreeColumnLayout.astro";
+import Ornament from "../components/Ornament.astro";
+---
+
+<BaseLayout title="Colophon">
+  <ThreeColumnLayout>
+    <article>
+      <h1>Colophon</h1>
+      <p class="meta-text">How this site is made</p>
+      <p>
+        This page describes the tools, processes, and decisions behind
+        chrisbusse.com. If you're reading an article and wondering how it
+        was produced, this is the place.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>On AI-Assisted Writing</h2>
+      <p>
+        Some of the writing on this site is developed with AI assistance,
+        primarily Claude by Anthropic. I treat AI the way a researcher treats
+        a librarian or a writer treats an editor: the tool extends my reach,
+        but the accountability is mine.
+      </p>
+      <p>
+        The degree of AI involvement varies by piece. Some begin as broad
+        research prompts where the AI surfaces sources and synthesizes
+        background material that I then shape into an argument. Others are
+        pair-written through iterative conversation, with the AI drafting
+        and me directing. Some I write entirely myself.
+      </p>
+      <p>
+        Where AI contributed meaningfully, I note it in a process colophon
+        at the end of the article. I do this not because the norms require
+        it yet&mdash;they are still forming&mdash;but because I believe
+        transparency about process is a prerequisite for trust. The words
+        published under my name reflect my judgment, my editorial choices,
+        and my willingness to stand behind them. How they were produced is
+        something you deserve to know.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Technology</h2>
+      <p>
+        This site is built with <a href="https://astro.build">Astro</a>,
+        a static site generator that ships zero JavaScript by default.
+        The source code is written with assistance from Claude and Cursor.
+        Content is authored in Markdown and rendered at build time.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Typography</h2>
+      <p>
+        Headings are set in <a href="https://fonts.google.com/specimen/Rokkitt">Rokkitt</a>,
+        a slab serif by Vernon Adams. Body text uses
+        <a href="https://fonts.google.com/specimen/Spectral">Spectral</a>,
+        a serif designed for screen reading by Production Type. Interface
+        elements and metadata use
+        <a href="https://fonts.google.com/specimen/Roboto+Mono">Roboto Mono</a>
+        by Christian Robertson.
+      </p>
+    </article>
+  </ThreeColumnLayout>
+</BaseLayout>
