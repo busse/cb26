@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ThreeColumnLayout from "../../layouts/ThreeColumnLayout.astro";
+import TwoColumnLayout from "../../layouts/TwoColumnLayout.astro";
 import PostLayout from "../../layouts/PostLayout.astro";
 
 export async function getStaticPaths() {
@@ -26,9 +26,9 @@ const readingTime = Math.max(1, Math.round(wordCount / 230));
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} type="article" aiAssisted={post.data.ai.assisted} aiTools={post.data.ai.tools}>
-  <ThreeColumnLayout>
+  <TwoColumnLayout>
     <PostLayout post={post} readingTime={readingTime} prevPost={prevPost} nextPost={nextPost}>
       <Content />
     </PostLayout>
-  </ThreeColumnLayout>
+  </TwoColumnLayout>
 </BaseLayout>

@@ -3,6 +3,7 @@
   font-size: clamp(2rem, 5vw, 3rem);
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  line-height: 1;
 }
 
 .masthead a {
@@ -15,12 +16,13 @@
 }
 
 .masthead-kicker {
-  margin: 0 0 var(--space-1);
+  margin: 0;
   font-family: var(--font-ui);
   font-size: var(--step--1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-muted);
+  line-height: 1;
 }
 
 .top-nav {
@@ -44,21 +46,6 @@
   color: var(--color-muted);
 }
 
-.sidebar-nav-list,
-.archive-list,
-.blogroll-list {
-  margin: 0;
-  padding-left: 0;
-  list-style: none;
-}
-
-.sidebar-nav-list li,
-.archive-list li,
-.blogroll-list li {
-  margin-bottom: var(--space-3);
-  font-family: var(--font-ui);
-  font-size: var(--step--1);
-}
 
 .sidebar-talks {
   background: #fef9e7;
@@ -166,6 +153,10 @@
 
 .reading-header h1 {
   margin-bottom: var(--space-3);
+}
+
+.post-body p {
+  max-width: 65ch;
 }
 
 .post-body h2,
@@ -297,7 +288,6 @@
 
 .campaign-banner p {
   margin: 0;
-  max-width: none;
 }
 
 .campaign-banner a {
@@ -348,9 +338,6 @@
   line-height: 1.1;
 }
 
-.visionaries-goal p {
-  max-width: none;
-}
 
 .visionaries-cta {
   display: inline-block;

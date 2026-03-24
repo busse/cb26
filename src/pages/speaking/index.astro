@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ThreeColumnLayout from "../../layouts/ThreeColumnLayout.astro";
+import TwoColumnLayout from "../../layouts/TwoColumnLayout.astro";
 
 const now = new Date();
 const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -15,7 +15,7 @@ const pastTalks = allTalks.filter((talk) => talk.data.date < today).reverse();
 ---
 
 <BaseLayout title="Speaking">
-  <ThreeColumnLayout>
+  <TwoColumnLayout>
     <h1>Speaking</h1>
 
     {upcomingTalks.length > 0 && (
@@ -88,5 +88,5 @@ const pastTalks = allTalks.filter((talk) => talk.data.date < today).reverse();
         </ul>
       </section>
     )}
-  </ThreeColumnLayout>
+  </TwoColumnLayout>
 </BaseLayout>
