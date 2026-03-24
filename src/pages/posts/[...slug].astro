@@ -26,7 +26,7 @@ const readingTime = Math.max(1, Math.round(wordCount / 230));
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} type="article" aiAssisted={post.data.ai.assisted} aiTools={post.data.ai.tools}>
-  <TwoColumnLayout>
+  <TwoColumnLayout layout="prose">
     <PostLayout post={post} readingTime={readingTime} prevPost={prevPost} nextPost={nextPost}>
       <Content />
     </PostLayout>

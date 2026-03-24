@@ -4,18 +4,20 @@ import TagList from "./TagList.astro";
 
 interface Props {
   post: CollectionEntry<"posts">;
+  variant?: "default" | "lead";
 }
 
-const { post } = Astro.props;
+const { post, variant = "default" } = Astro.props;
 const dateText = post.data.date.toLocaleDateString("en-US", {
   year: "numeric",
   month: "long",
   day: "numeric",
   timeZone: "UTC",
 });
+const classes = ["post-card", variant === "lead" && "post-card-lead"].filter(Boolean).join(" ");
 ---
 
-<article class="post-card">
+<article class={classes}>
   <h2 class="post-card-title"><a href={`/posts/${post.id}`}>{post.data.title}</a></h2>
   <p class="meta-text post-card-meta">{dateText}{post.data.category && <> · <a class="category-label" href={`/category/${encodeURIComponent(post.data.category.toLowerCase())}`}>{post.data.category}</a></>}</p>
   <p>{post.data.description}</p>

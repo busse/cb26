@@ -1,7 +1,15 @@
+/* --------------------------------------------------------
+   Site Shell — max-width container with outer margins
+   -------------------------------------------------------- */
+
 .site-shell {
-  width: min(72rem, calc(100% - 6rem));
+  width: min(var(--grid-max), calc(100% - var(--grid-margin) * 2));
   margin: 0 auto;
 }
+
+/* --------------------------------------------------------
+   Site Header
+   -------------------------------------------------------- */
 
 .site-header {
   display: flex;
@@ -9,34 +17,85 @@
   align-items: baseline;
   gap: var(--space-4);
   padding: var(--space-12) 0 var(--space-6);
-  border-bottom: 1px solid var(--color-rule);
+  border-bottom: var(--grid-rule-heavy);
 }
 
-.site-main-grid {
+/* --------------------------------------------------------
+   6-Column Content Grid
+   -------------------------------------------------------- */
+
+.site-content-grid {
   display: grid;
-  grid-template-columns: 13rem minmax(0, 1fr);
-  gap: 2.5rem;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  grid-template-areas: "sidebar main main main main main";
+  column-gap: var(--grid-gutter);
   align-items: start;
   padding: var(--space-10) 0 var(--space-12);
 }
 
+.site-content-grid[data-layout="prose"] {
+  grid-template-areas: "sidebar prose prose prose prose .";
+}
+
+.site-content-grid[data-layout="wide"] {
+  grid-template-areas: "sidebar wide wide wide wide wide";
+}
+
+/* --------------------------------------------------------
+   Grid Regions
+   -------------------------------------------------------- */
+
 .left-rail {
+  grid-area: sidebar;
   position: sticky;
   top: var(--space-4);
 }
 
 .main-column {
+  grid-area: main;
   min-width: 0;
+}
+
+.site-content-grid[data-layout="prose"] .main-column {
+  grid-area: prose;
+}
+
+.site-content-grid[data-layout="wide"] .main-column {
+  grid-area: wide;
 }
 
 .main-column > :first-child {
   margin-top: 0;
 }
 
+/* --------------------------------------------------------
+   Column-Span Utilities
+   -------------------------------------------------------- */
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.span-3 {
+  grid-column: span 3;
+}
+
+.span-full {
+  grid-column: 1 / -1;
+}
+
+/* --------------------------------------------------------
+   Footer
+   -------------------------------------------------------- */
+
 .site-footer {
-  border-top: 1px solid var(--color-rule);
+  border-top: var(--grid-rule-light);
   padding: var(--space-8) 0 var(--space-12);
 }
+
+/* --------------------------------------------------------
+   Stack Utilities
+   -------------------------------------------------------- */
 
 .stack-compact > * + * {
   margin-top: var(--space-3);
@@ -46,26 +105,96 @@
   margin-top: var(--space-10);
 }
 
+/* --------------------------------------------------------
+   Homepage Post Grid — tiered hierarchy inside main-column
+   -------------------------------------------------------- */
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: var(--grid-gutter);
+  row-gap: var(--space-8);
+}
+
+.post-grid-lead {
+  grid-column: 1 / -1;
+  padding-bottom: var(--space-8);
+  border-bottom: var(--grid-rule-heavy);
+}
+
+.post-grid-secondary {
+  padding-bottom: var(--space-8);
+  border-bottom: var(--grid-rule-light);
+}
+
+.post-grid-rest {
+  grid-column: 1 / -1;
+}
+
+/* --------------------------------------------------------
+   Responsive: Tablet (768px – 1024px) — 4 columns, sidebar stacks
+   -------------------------------------------------------- */
+
 @media (max-width: 1024px) {
-  .site-main-grid {
-    display: block;
+  .site-content-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "sidebar sidebar sidebar sidebar"
+      "main    main    main    main";
+  }
+
+  .site-content-grid[data-layout="prose"] {
+    grid-template-areas:
+      "sidebar sidebar sidebar sidebar"
+      "prose   prose   prose   prose";
+  }
+
+  .site-content-grid[data-layout="wide"] {
+    grid-template-areas:
+      "sidebar sidebar sidebar sidebar"
+      "wide    wide    wide    wide";
   }
 
   .left-rail {
     position: static;
-    border-bottom: 1px solid var(--color-rule);
+    border-bottom: var(--grid-rule-light);
     padding-bottom: var(--space-4);
     margin-bottom: var(--space-4);
   }
 }
 
+/* --------------------------------------------------------
+   Responsive: Mobile (<768px) — single column stack
+   -------------------------------------------------------- */
+
 @media (max-width: 767px) {
   .site-shell {
-    width: min(72rem, calc(100% - 3rem));
+    width: min(var(--grid-max), calc(100% - var(--space-6) * 2));
   }
 
   .site-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .site-content-grid,
+  .site-content-grid[data-layout="prose"],
+  .site-content-grid[data-layout="wide"] {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sidebar"
+      "main";
+  }
+
+  .site-content-grid[data-layout="prose"] .main-column {
+    grid-area: main;
+  }
+
+  .site-content-grid[data-layout="wide"] .main-column {
+    grid-area: main;
+  }
+
+  .post-grid {
+    grid-template-columns: 1fr;
   }
 }

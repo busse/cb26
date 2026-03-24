@@ -3,12 +3,19 @@ import Header from "../components/Header.astro";
 import CampaignBanner from "../components/CampaignBanner.astro";
 import LeftSidebar from "../components/LeftSidebar.astro";
 import Footer from "../components/Footer.astro";
+
+interface Props {
+  layout?: "default" | "prose" | "wide";
+}
+
+const { layout = "default" } = Astro.props;
+const dataLayout = layout !== "default" ? layout : undefined;
 ---
 
 <div class="site-shell">
   <CampaignBanner />
   <Header />
-  <div class="site-main-grid">
+  <div class="site-content-grid" data-layout={dataLayout}>
     <LeftSidebar />
     <main id="main-content" class="main-column">
       <slot />
