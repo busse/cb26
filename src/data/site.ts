@@ -21,3 +21,9 @@ export const primaryNav = [
   { label: "Archive", href: "/archive" },
   { label: "About", href: "/about" },
 ];
+
+export const visionariesCampaign = {
+  landingPath: "/visionaries",
+  fundraisingUrl: "https://placeholder.com/donate",
+  goal: "$50,000",
+};

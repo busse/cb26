@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThreeColumnLayout from "../layouts/ThreeColumnLayout.astro";
+import Ornament from "../components/Ornament.astro";
+import { visionariesCampaign } from "../data/site";
+
+const description =
+  "Chris Busse has been nominated for Blood Cancer United's Visionaries of the Year in Richmond. Learn why and how you can help fund the fight against blood cancer.";
+---
+
+<BaseLayout
+  title="Visionaries of the Year"
+  description={description}
+>
+  <ThreeColumnLayout>
+    <article>
+      <header class="visionaries-hero">
+        <p class="visionaries-kicker">Blood Cancer United</p>
+        <h1>Visionaries of the Year</h1>
+        <p class="lead-text">
+          I've been nominated as a Visionary of the Year candidate in Richmond.
+          This is a ten-week fundraising campaign in honor of local blood cancer
+          survivors — and every dollar raised goes directly to research, patient
+          support, and advocacy that is changing what it means to hear the words
+          "you have blood cancer."
+        </p>
+      </header>
+
+      <h2>Why This Matters</h2>
+
+      <p>
+        Every five minutes, someone in the United States is diagnosed with a blood
+        cancer.<sup><a href="#fn-1" id="ref-1">1</a></sup> Leukemia, lymphoma,
+        myeloma, and myelodysplastic syndromes collectively represent the
+        third-leading cause of cancer death in the U.S., ahead of breast cancer
+        and prostate cancer.<sup><a href="#fn-2" id="ref-2">2</a></sup>
+      </p>
+
+      <p>
+        Blood Cancer United — formerly The Leukemia &amp; Lymphoma Society — is
+        the world's largest nonprofit funder of blood cancer research. Since 1949,
+        they have invested more than $2 billion in groundbreaking research, and
+        their work has been instrumental in advancing more than 70 percent of the
+        blood cancer treatments approved by the FDA over the past two
+        decades.<sup><a href="#fn-3" id="ref-3">3</a></sup>
+      </p>
+
+      <p>
+        That is not a marketing number. It represents a transformation in survival
+        rates that was unimaginable a generation ago. In 2022 alone, Blood Cancer
+        United committed $233.8 million in multi-year research funding, supporting
+        more than 220 scientists at leading institutions
+        worldwide.<sup><a href="#fn-4" id="ref-4">4</a></sup>
+      </p>
+
+      <Ornament />
+
+      <p>
+        Their Therapy Acceleration Program partners directly with biotech companies
+        to fast-track promising treatments through clinical trials. Their Beat AML
+        master trial is pioneering precision medicine for acute myeloid leukemia.
+        Their funding helped develop CAR T-cell therapy — a treatment in which a
+        patient's own immune cells are re-engineered to attack cancer — which led
+        to the FDA approval of axicabtagene ciloleucel, the first CAR T-cell
+        therapy for lymphoma.<sup><a href="#fn-5" id="ref-5">5</a></sup>
+      </p>
+
+      <p>
+        More recently, over a decade of Blood Cancer United-funded research
+        establishing CD38 as a treatment target led to the development of
+        daratumumab, now a cornerstone of multiple myeloma treatment. The FDA
+        approved a combination therapy built on that work as recently as March
+        2026.<sup><a href="#fn-6" id="ref-6">6</a></sup>
+      </p>
+
+      <p>
+        Beyond research, Blood Cancer United provides free educational resources
+        and support programs for patients and families navigating diagnosis and
+        treatment. They have mobilized more than 100,000 volunteer advocates
+        across the country to fight for policies that protect patients' access to
+        care.<sup><a href="#fn-7" id="ref-7">7</a></sup>
+      </p>
+
+      <Ornament />
+
+      <h2>My Why</h2>
+
+      <p>
+        <!-- Replace this with your personal story and motivation -->
+        <em>[Your personal connection to this cause goes here. Why does this
+        matter to you? Who are you fighting for?]</em>
+      </p>
+
+      <div class="visionaries-goal">
+        <p class="visionaries-kicker">Campaign Goal</p>
+        <span class="goal-amount">{visionariesCampaign.goal}</span>
+        <p>
+          Every dollar goes to Blood Cancer United's mission: curing blood cancer
+          and improving the quality of life of patients and their families.
+        </p>
+        <a href={visionariesCampaign.fundraisingUrl} class="visionaries-cta">
+          Donate Now
+        </a>
+      </div>
+
+      <Ornament />
+
+      <section class="visionaries-footnotes" aria-label="References">
+        <h2 id="references">References</h2>
+        <ol>
+          <li id="fn-1">
+            Blood Cancer United, "Blood Cancer Facts and Statistics."
+            <a href="https://bloodcancerunited.org/blood-cancer/blood-cancer-facts-and-statistics">
+              bloodcancerunited.org/blood-cancer/blood-cancer-facts-and-statistics
+            </a>
+            <a href="#ref-1" aria-label="Back to reference 1">↩</a>
+          </li>
+          <li id="fn-2">
+            Blood Cancer United, "Blood Cancer Facts and Statistics."
+            <a href="https://bloodcancerunited.org/blood-cancer/blood-cancer-facts-and-statistics">
+              bloodcancerunited.org/blood-cancer/blood-cancer-facts-and-statistics
+            </a>
+            <a href="#ref-2" aria-label="Back to reference 2">↩</a>
+          </li>
+          <li id="fn-3">
+            Blood Cancer United, "Blood Cancer Research."
+            <a href="https://bloodcancerunited.org/research/blood-cancer-research-development-progress">
+              bloodcancerunited.org/research/blood-cancer-research-development-progress
+            </a>
+            <a href="#ref-3" aria-label="Back to reference 3">↩</a>
+          </li>
+          <li id="fn-4">
+            Blood Cancer United, "Our Impact on Blood Cancer Research."
+            <a href="https://bloodcancerunited.org/research/blood-cancer-research-development-progress">
+              bloodcancerunited.org/research/blood-cancer-research-development-progress
+            </a>
+            <a href="#ref-4" aria-label="Back to reference 4">↩</a>
+          </li>
+          <li id="fn-5">
+            Blood Cancer United, "LLS Research Spotlight."
+            <a href="https://bloodcancerunited.org/lls-research-spotlight">
+              bloodcancerunited.org/lls-research-spotlight
+            </a>
+            <a href="#ref-5" aria-label="Back to reference 5">↩</a>
+          </li>
+          <li id="fn-6">
+            Blood Cancer United, "FDA Approves Combination Treatment for Multiple Myeloma."
+            <a href="https://bloodcancerunited.org/resources/newsroom/fda-approves-combination-treatment-multiple-myeloma">
+              bloodcancerunited.org/resources/newsroom/fda-approves-combination-treatment-multiple-myeloma
+            </a>
+            <a href="#ref-6" aria-label="Back to reference 6">↩</a>
+          </li>
+          <li id="fn-7">
+            Blood Cancer United, "Visionaries of the Year."
+            <a href="https://www.llsvisionaries.org/">
+              llsvisionaries.org
+            </a>
+            <a href="#ref-7" aria-label="Back to reference 7">↩</a>
+          </li>
+        </ol>
+      </section>
+    </article>
+  </ThreeColumnLayout>
+</BaseLayout>

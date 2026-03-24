@@ -282,3 +282,117 @@
     grid-template-columns: 1fr;
   }
 }
+
+.campaign-banner {
+  margin-top: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.campaign-banner p {
+  margin: 0;
+  max-width: none;
+}
+
+.campaign-banner a {
+  color: inherit;
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+
+.campaign-banner a:visited {
+  color: inherit;
+}
+
+.campaign-banner a:hover {
+  text-decoration-color: #ffffff;
+}
+
+.visionaries-hero {
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--color-rule);
+  margin-bottom: var(--space-8);
+}
+
+.visionaries-hero h1 {
+  margin-bottom: var(--space-3);
+}
+
+.visionaries-kicker {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.visionaries-goal {
+  margin: var(--space-10) 0;
+  padding: var(--space-6);
+  border: 3px double var(--color-text);
+  text-align: center;
+}
+
+.visionaries-goal .goal-amount {
+  display: block;
+  margin: var(--space-2) 0 var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.visionaries-goal p {
+  max-width: none;
+}
+
+.visionaries-cta {
+  display: inline-block;
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-8);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.visionaries-cta:visited {
+  color: var(--color-bg);
+}
+
+.visionaries-cta:hover {
+  background: var(--color-secondary);
+  text-decoration: none;
+}
+
+.visionaries-footnotes {
+  margin-top: var(--space-10);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-rule);
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  color: var(--color-muted);
+}
+
+.visionaries-footnotes ol {
+  padding-left: var(--space-6);
+}
+
+.visionaries-footnotes li {
+  margin-bottom: var(--space-2);
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.visionaries-footnotes a {
+  color: var(--color-muted);
+}

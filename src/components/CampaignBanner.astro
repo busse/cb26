@@ -1,0 +1,15 @@
+---
+import { visionariesCampaign } from "../data/site";
+
+const isVisionariesPage = Astro.url.pathname.replace(/\/$/, "") === visionariesCampaign.landingPath;
+---
+
+{!isVisionariesPage && (
+  <div class="campaign-banner">
+    <p>
+      I've been nominated for Blood Cancer United's
+      <a href={visionariesCampaign.landingPath}><strong>Visionaries of the Year</strong></a>
+      — Richmond. Help fund the fight against blood cancer.
+    </p>
+  </div>
+)}
