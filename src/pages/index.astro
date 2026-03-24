@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ThreeColumnLayout from "../layouts/ThreeColumnLayout.astro";
+import TwoColumnLayout from "../layouts/TwoColumnLayout.astro";
 import PostCard from "../components/PostCard.astro";
 import Ornament from "../components/Ornament.astro";
 
@@ -12,7 +12,7 @@ const posts = (await getCollection("posts"))
 ---
 
 <BaseLayout title="Home">
-  <ThreeColumnLayout>
+  <TwoColumnLayout>
     <section class="stack-spacious">
       <header>
         <h1>I use creativity to guide business, product, and technology leaders through complex high-risk enterprise change journeys.</h1>
@@ -25,5 +25,5 @@ const posts = (await getCollection("posts"))
       <Ornament />
       {posts.map((post) => <PostCard post={post} />)}
     </section>
-  </ThreeColumnLayout>
+  </TwoColumnLayout>
 </BaseLayout>

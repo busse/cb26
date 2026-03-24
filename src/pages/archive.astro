@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ThreeColumnLayout from "../layouts/ThreeColumnLayout.astro";
+import TwoColumnLayout from "../layouts/TwoColumnLayout.astro";
 
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
@@ -18,7 +18,7 @@ const grouped = Object.entries(
 ---
 
 <BaseLayout title="Archive">
-  <ThreeColumnLayout>
+  <TwoColumnLayout>
     <h1>Archive</h1>
     {
       grouped.map(([year, yearPosts]) => (
@@ -37,5 +37,5 @@ const grouped = Object.entries(
         </section>
       ))
     }
-  </ThreeColumnLayout>
+  </TwoColumnLayout>
 </BaseLayout>
