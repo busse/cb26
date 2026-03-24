@@ -14,6 +14,7 @@ const posts = (await getCollection("posts"))
 <BaseLayout title="Home">
   <TwoColumnLayout>
     <section class="stack-spacious">
+    <!--
       <header>
         <h1>I use creativity to guide business, product, and technology leaders through complex high-risk enterprise change journeys.</h1>
         <p class="lead-text">
@@ -23,6 +24,7 @@ const posts = (await getCollection("posts"))
         </p>
       </header>
       <Ornament />
+      -->
       {posts.map((post) => <PostCard post={post} />)}
     </section>
   </TwoColumnLayout>
