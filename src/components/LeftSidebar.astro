@@ -6,9 +6,14 @@ const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
+const allPhotos = (await getCollection("photos"))
+  .filter((photo) => !photo.data.draft);
+
 const categories = [...new Set(
-  posts
-    .map((post) => post.data.category)
+  [
+    ...posts.map((post) => post.data.category),
+    ...allPhotos.map((photo) => photo.data.category),
+  ]
     .filter((c): c is string => Boolean(c))
     .map((c) => c.toLowerCase()),
 )].sort();
@@ -22,9 +27,6 @@ const allTalks = (await getCollection("talks")).sort(
 
 const upcomingTalks = allTalks.filter((t) => t.data.date >= today);
 const recentTalks = allTalks.filter((t) => t.data.date < today).slice(0, 5);
-
-const allPhotos = (await getCollection("photos"))
-  .filter((photo) => !photo.data.draft);
 
 const layerDisplayNames: Record<string, string> = {
   fashion: "Fashion / Art",

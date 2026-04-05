@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TwoColumnLayout from "../../layouts/TwoColumnLayout.astro";
+
+const posts = (await getCollection("posts")).filter((p) => !p.data.draft);
+const photos = (await getCollection("photos")).filter((p) => !p.data.draft);
+
+const categoryCounts = new Map<string, number>();
+for (const item of [...posts, ...photos]) {
+  const cat = item.data.category;
+  if (cat) {
+    const key = cat.toLowerCase();
+    categoryCounts.set(key, (categoryCounts.get(key) ?? 0) + 1);
+  }
+}
+
+const sortedCategories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+---
+
+<BaseLayout title="All Categories">
+  <TwoColumnLayout>
+    <h1>Categories</h1>
+    <ul class="category-index-list">
+      {sortedCategories.map(([cat, count]) => (
+        <li>
+          <a href={`/category/${encodeURIComponent(cat)}`}>{cat}</a>
+          <span class="meta-text">({count})</span>
+        </li>
+      ))}
+    </ul>
+  </TwoColumnLayout>
+</BaseLayout>
+
+<style>
+  .category-index-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+  .category-index-list li {
+    white-space: nowrap;
+    text-transform: capitalize;
+  }
+</style>

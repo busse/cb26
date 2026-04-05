@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TwoColumnLayout from "../../layouts/TwoColumnLayout.astro";
+
+const posts = (await getCollection("posts")).filter((p) => !p.data.draft);
+const talks = await getCollection("talks");
+const photos = (await getCollection("photos")).filter((p) => !p.data.draft);
+
+const tagCounts = new Map<string, number>();
+for (const item of [...posts, ...talks, ...photos]) {
+  for (const tag of item.data.tags) {
+    const key = tag.toLowerCase();
+    tagCounts.set(key, (tagCounts.get(key) ?? 0) + 1);
+  }
+}
+
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+---
+
+<BaseLayout title="All Tags">
+  <TwoColumnLayout>
+    <h1>Tags</h1>
+    <ul class="tag-index-list">
+      {sortedTags.map(([tag, count]) => (
+        <li>
+          <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
+          <span class="meta-text">({count})</span>
+        </li>
+      ))}
+    </ul>
+  </TwoColumnLayout>
+</BaseLayout>
+
+<style>
+  .tag-index-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+  .tag-index-list li {
+    white-space: nowrap;
+  }
+</style>

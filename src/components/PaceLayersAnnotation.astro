@@ -26,7 +26,7 @@ const { layers } = Astro.props;
     <dl class="pace-layers-list">
       {layers.map((entry) => (
         <div class="pace-layer-entry">
-          <dt>{displayNames[entry.layer]}</dt>
+          <dt><a href={`/layer/${entry.layer}`}>{displayNames[entry.layer]}</a></dt>
           <dd>{entry.rationale}</dd>
         </div>
       ))}

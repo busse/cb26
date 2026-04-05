@@ -3,12 +3,16 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TwoColumnLayout from "../../layouts/TwoColumnLayout.astro";
 import PostCard from "../../components/PostCard.astro";
+import GalleryGrid from "../../components/GalleryGrid.astro";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("posts")).filter((post) => !post.data.draft);
+  const photos = (await getCollection("photos")).filter((photo) => !photo.data.draft);
   const categories = [...new Set(
-    posts
-      .map((p) => p.data.category)
+    [
+      ...posts.map((p) => p.data.category),
+      ...photos.map((p) => p.data.category),
+    ]
       .filter((c): c is string => Boolean(c))
       .map((c) => c.toLowerCase()),
   )];
@@ -21,14 +25,30 @@ const { category } = Astro.params;
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft && post.data.category?.toLowerCase() === category)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const photos = (await getCollection("photos"))
+  .filter((photo) => !photo.data.draft && photo.data.category?.toLowerCase() === category)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <BaseLayout title={`Category: ${category}`}>
   <TwoColumnLayout>
     <h1>Category: <span style="text-transform: capitalize;">{category}</span></h1>
 
-    <div class="stack-spacious">
-      {posts.map((post) => <PostCard post={post} />)}
-    </div>
+    {posts.length > 0 && (
+      <section>
+        {photos.length > 0 && <h2>Posts</h2>}
+        <div class="stack-spacious">
+          {posts.map((post) => <PostCard post={post} />)}
+        </div>
+      </section>
+    )}
+
+    {photos.length > 0 && (
+      <section>
+        {posts.length > 0 && <h2>Photos</h2>}
+        <GalleryGrid photos={photos} compact />
+      </section>
+    )}
   </TwoColumnLayout>
 </BaseLayout>
