@@ -11,6 +11,13 @@ ai:
   tools: ["Claude"]
   role: "pair-writing"
   process: "Collaborative essay developed through iterative conversation between human and AI, with the human providing the thesis and editorial direction."
+paceLayers:
+  - layer: infrastructure
+    rationale: "The essay's central arc traces how infrastructure complexity — cloud, DevOps, Kubernetes, CI/CD — accreted over two decades, burying the productivity that simpler tooling once provided."
+  - layer: commerce
+    rationale: "RAD-era VB and AI-era tooling both derive their power from collapsing costs for small teams, enabling solo developers and pairs to ship commercially viable products without platform teams."
+  - layer: fashion
+    rationale: "AI-assisted engineering is the current fast-moving layer — the newest abstraction compressing everything beneath it, still in its trend phase before the slower layers absorb or reject it."
 ---
 
 There's a pattern in software engineering that nobody talks about enough. We had something good, we made it complicated, and now AI is giving it back to us.

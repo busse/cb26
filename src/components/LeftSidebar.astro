@@ -22,19 +22,59 @@ const allTalks = (await getCollection("talks")).sort(
 
 const upcomingTalks = allTalks.filter((t) => t.data.date >= today);
 const recentTalks = allTalks.filter((t) => t.data.date < today).slice(0, 5);
+
+const allPhotos = (await getCollection("photos"))
+  .filter((photo) => !photo.data.draft);
+
+const layerDisplayNames: Record<string, string> = {
+  fashion: "Fashion / Art",
+  commerce: "Commerce",
+  infrastructure: "Infrastructure",
+  governance: "Governance",
+  culture: "Culture",
+  nature: "Nature",
+};
+
+const activeLayers = [...new Set([
+  ...posts.flatMap((p) => p.data.paceLayers.map((pl) => pl.layer)),
+  ...allTalks.flatMap((t) => t.data.paceLayers.map((pl) => pl.layer)),
+  ...allPhotos.flatMap((p) => p.data.paceLayers.map((pl) => pl.layer)),
+])].sort((a, b) => {
+  const order = Object.keys(layerDisplayNames);
+  return order.indexOf(a) - order.indexOf(b);
+});
 ---
 
 <aside class="left-rail">
-  <div class="sidebar-block">
+  <div class="sidebar-block sidebar-about">
     <p class="section-label">About</p>
     <p class="lead-text">
-      I use creativity to guide leaders through complex enterprise change.
-      Currently at SingleStone and Eszett. Based in {siteConfig.location}.
+      I use creativity to guide leaders & teams through complex change journeys.
+    </p>
+    <p class="lead-text">
+      Currently at <a href="https://singlestoneconsulting.com">SingleStone</a> and <a href="https://eszetthq.com">Eszett</a>.
+    </p>
+    <p class="lead-text">
+      Based in {siteConfig.location}.
     </p>
   </div>
 
+  {activeLayers.length > 0 && (
+    <div class="sidebar-block sidebar-pace-layers">
+      <p class="section-label">Pace Layers</p>
+      <p class="lead-text">
+        <a href="/approach">How I think about complex systems.</a>
+      </p>
+      <ul class="category-list">
+        {activeLayers.map((layer) => (
+          <li><a href={`/layer/${layer}`}>{layerDisplayNames[layer]}</a></li>
+        ))}
+      </ul>
+    </div>
+  )}
+
   {categories.length > 0 && (
-    <div class="sidebar-block">
+    <div class="sidebar-block sidebar-categories">
       <p class="section-label">Categories</p>
       <ul class="category-list">
         {categories.map((cat) => <li><a href={`/category/${encodeURIComponent(cat)}`}>{cat}</a></li>)}

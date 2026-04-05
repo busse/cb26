@@ -17,6 +17,8 @@ export const socialLinks = [
 
 export const primaryNav = [
   { label: "Home", href: "/" },
+  { label: "Approach", href: "/approach" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Speaking", href: "/speaking" },
   { label: "Archive", href: "/archive" },
   { label: "About", href: "/about" },

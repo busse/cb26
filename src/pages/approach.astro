@@ -1,0 +1,193 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TwoColumnLayout from "../layouts/TwoColumnLayout.astro";
+import Ornament from "../components/Ornament.astro";
+---
+
+<BaseLayout title="Editorial Approach">
+  <TwoColumnLayout>
+    <article>
+      <h1>Editorial Approach</h1>
+      <p class="meta-text">How I think about problems</p>
+      <p>
+        The writing on this site is shaped by three intellectual traditions
+        that I return to constantly in my work with leaders, organizations,
+        and complex systems. They are not decorative references. They are
+        the actual framework I use to decide what matters, what to let go of,
+        and when something needs to be torn down so something better can
+        be built.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Stoicism</h2>
+      <p>
+        The Stoic tradition teaches the discipline of separating what is
+        within your control from what is not&mdash;and investing your energy
+        only in the former. Epictetus opens the <cite>Discourses</cite> with
+        this distinction. Marcus Aurelius returns to it throughout the
+        <cite>Meditations</cite>, writing to himself as a daily practice of
+        recalibration. Seneca's <cite>Letters to Lucilius</cite> extend the
+        idea into practical advice on managing time, setbacks, and the
+        expectations of others.
+      </p>
+      <p>
+        In enterprise work, this translates directly. Most of the anxiety
+        in large-scale change comes from fixating on things outside your
+        control&mdash;market timing, executive politics, inherited technical
+        debt. Stoic practice redirects attention to the response: what can
+        you actually do, right now, with what you have? <em>Premeditatio
+        malorum</em>&mdash;the premeditation of adversity&mdash;is not
+        pessimism. It is the disciplined habit of thinking through what
+        could go wrong before it does, so that when it does, you act
+        rather than react.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Eastern Philosophy</h2>
+
+      <h3>The Tao Te Ching</h3>
+      <p>
+        Lao Tzu's <cite>Tao Te Ching</cite> is the other lens I carry into
+        every engagement. Where Stoicism provides discipline, the Tao
+        provides disposition&mdash;a way of moving through situations that
+        favors yielding over forcing, emptiness over accumulation, and
+        patience over urgency.
+      </p>
+      <p>
+        Chapter 76 teaches that the rigid and unyielding belong to death,
+        while the soft and flexible belong to life. Chapter 11 observes that
+        the usefulness of a vessel comes from its emptiness&mdash;a reminder
+        that what is <em>not</em> there often matters more than what is.
+        Chapter 22 counsels that by yielding, you overcome. These are not
+        abstractions. They describe, with unsettling precision, how the best
+        enterprise transformations actually work: not by imposing a vision
+        from above, but by creating the conditions for the right thing to
+        emerge.
+      </p>
+      <p>
+        My primary translation is Brian Browne Walker's, though I continue
+        to read across translations&mdash;each one surfaces something
+        the others leave in shadow.
+      </p>
+
+      <h3>Shiva: Destruction as Creation</h3>
+      <p>
+        The Hindu tradition of Shiva as destroyer and creator provides
+        something that Stoicism and Taoism, on their own, do not: explicit
+        permission to tear things down. Shiva's <em>tandava</em>&mdash;the
+        cosmic dance of destruction and renewal&mdash;holds that creation
+        is not possible without the dissolution of what came before. The old
+        must be consumed so the new can emerge from its ashes.
+      </p>
+      <p>
+        In the Western tradition, Joseph Schumpeter arrived at a parallel
+        insight with his concept of "creative destruction"&mdash;the
+        recognition that economic progress requires the continuous
+        dismantling of existing structures. But where Schumpeter described
+        a mechanism, the Shaiva tradition describes a <em>disposition</em>:
+        not just that destruction happens, but that it is sacred, necessary,
+        and should be approached with intention rather than regret.
+      </p>
+      <p>
+        This is the hardest part of enterprise work. Knowing that a legacy
+        system, a team structure, or a business model must be dismantled
+        is one thing. Having the conviction to do it&mdash;and the
+        framework to know <em>when</em>&mdash;is another.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Pace Layers</h2>
+      <p>
+        Stewart Brand introduced the pace layers framework in
+        <cite>The Clock of the Long Now</cite> (1999) and later refined it
+        in "Pace Layering: How Complex Systems Learn," published in the
+        <cite>Journal of Design and Science</cite> (MIT Media Lab, 2018).
+        The model describes civilization&mdash;and, by extension, any
+        complex system&mdash;as a stack of layers, each moving at a
+        different speed:
+      </p>
+      <dl class="pace-layers-diagram">
+        <div class="pace-layer-row">
+          <dt>Fashion / Art</dt>
+          <dd>The fastest layer. Trends, experimentation, novelty. It moves quickly, fails cheaply, and generates the variation from which slower layers eventually select.</dd>
+        </div>
+        <div class="pace-layer-row">
+          <dt>Commerce</dt>
+          <dd>Markets, business models, economic incentives. Faster than governance but constrained by it. Commerce amplifies what fashion invents and discards what cannot sustain itself.</dd>
+        </div>
+        <div class="pace-layer-row">
+          <dt>Infrastructure</dt>
+          <dd>Roads, networks, platforms, protocols. Slow to build, expensive to change, and foundational to everything above it. In technology: APIs, data models, deployment pipelines.</dd>
+        </div>
+        <div class="pace-layer-row">
+          <dt>Governance</dt>
+          <dd>Laws, regulations, institutional structures. Governance absorbs the lessons of faster layers and codifies them. It is deliberately slow so that it can be deliberately stable.</dd>
+        </div>
+        <div class="pace-layer-row">
+          <dt>Culture</dt>
+          <dd>Deep values, identity, shared assumptions. Culture changes across generations, not quarters. It is the layer that determines what a society&mdash;or an organization&mdash;is willing to tolerate.</dd>
+        </div>
+        <div class="pace-layer-row">
+          <dt>Nature</dt>
+          <dd>The slowest layer. Geology, climate, biology. Nature operates on timescales that make human planning look like a rounding error. It is the foundation everything else rests on.</dd>
+        </div>
+      </dl>
+      <p>
+        Brand's core insight is that the health of the system depends on
+        each layer respecting its pace. Fast layers innovate; slow layers
+        stabilize. Fast layers propose; slow layers dispose. When a fast
+        layer tries to force change on a slow layer&mdash;or when a slow
+        layer suppresses the speed of a fast one&mdash;the system breaks.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>The Synthesis</h2>
+      <p>
+        These three traditions converge in my work:
+      </p>
+      <p>
+        <strong>Pace Layers</strong> provides the structural map. What layer
+        are you operating in? What is its natural speed? What layers sit
+        above and below you, and how are they exerting pressure?
+      </p>
+      <p>
+        <strong>Stoicism</strong> provides the discipline. Within the layer
+        you occupy, what is actually within your control? What must you
+        accept? Where should you invest your energy, and where should you
+        let go?
+      </p>
+      <p>
+        <strong>The Tao Te Ching</strong> provides the disposition. When the
+        layer demands patience, yield. When rigidity would break what
+        flexibility would preserve, be water. When the right action is
+        no action, have the composure to wait.
+      </p>
+      <p>
+        <strong>Shiva</strong> provides the permission. When a layer is ripe
+        for destruction&mdash;when the legacy system cannot be reformed,
+        when the organizational structure is actively preventing the work
+        it was designed to support&mdash;have the conviction to tear it
+        down. Some layers must be destroyed before they can be renewed.
+        Knowing when that moment has arrived is the hardest judgment call
+        in enterprise work.
+      </p>
+      <p>
+        Articles on this site are annotated with the pace layers they
+        touch. You will find these annotations at the end of each piece,
+        noting which layers the argument engages and why. The annotations
+        are my way of making the framework visible rather than leaving
+        it implicit.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <p>
+        For professional biography, see <a href="/about">About</a>.
+      </p>
+    </article>
+  </TwoColumnLayout>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TwoColumnLayout from "../../layouts/TwoColumnLayout.astro";
+import PhotoLayout from "../../layouts/PhotoLayout.astro";
+
+export async function getStaticPaths() {
+  const photos = (await getCollection("photos"))
+    .filter((photo) => !photo.data.draft)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  return photos.map((photo, index) => ({
+    params: { slug: photo.id },
+    props: {
+      photo,
+      prevPhoto: photos[index + 1],
+      nextPhoto: photos[index - 1],
+    },
+  }));
+}
+
+const { photo, prevPhoto, nextPhoto } = Astro.props;
+const { Content } = await render(photo);
+---
+
+<BaseLayout
+  title={photo.data.title}
+  description={photo.data.description}
+  type="article"
+  aiAssisted={photo.data.ai.assisted}
+  aiTools={photo.data.ai.tools}
+>
+  <TwoColumnLayout>
+    <PhotoLayout photo={photo} prevPhoto={prevPhoto} nextPhoto={nextPhoto}>
+      <Content />
+    </PhotoLayout>
+  </TwoColumnLayout>
+</BaseLayout>

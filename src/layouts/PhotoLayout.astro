@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TagList from "../components/TagList.astro";
+import Ornament from "../components/Ornament.astro";
+import ProcessColophon from "../components/ProcessColophon.astro";
+import PaceLayersAnnotation from "../components/PaceLayersAnnotation.astro";
+
+interface Props {
+  photo: CollectionEntry<"photos">;
+  prevPhoto?: CollectionEntry<"photos">;
+  nextPhoto?: CollectionEntry<"photos">;
+}
+
+const { photo, prevPhoto, nextPhoto } = Astro.props;
+const dateText = photo.data.date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
+const ai = photo.data.ai;
+---
+
+<article class="post-body">
+  <figure class="photo-detail-figure">
+    <img
+      src={photo.data.image}
+      alt={photo.data.alt}
+      class="photo-detail-image"
+    />
+  </figure>
+
+  <header class="reading-header">
+    <h1>{photo.data.title}</h1>
+    <p class="meta-text">
+      {dateText}
+      {photo.data.location && <> · {photo.data.location}</>}
+      {photo.data.category && <> · <a class="category-label" href={`/category/${encodeURIComponent(photo.data.category.toLowerCase())}`}>{photo.data.category}</a></>}
+    </p>
+    {photo.data.tags.length > 0 && <TagList tags={photo.data.tags} />}
+  </header>
+
+  <slot />
+
+  <PaceLayersAnnotation layers={photo.data.paceLayers} />
+
+  {ai.assisted && (
+    <ProcessColophon tools={ai.tools} role={ai.role} process={ai.process} />
+  )}
+
+  <Ornament glyph="✶" />
+
+  <nav class="stack-compact meta-text" aria-label="Photo navigation">
+    {prevPhoto && <p>← <a href={`/photos/${prevPhoto.id}`}>{prevPhoto.data.title}</a></p>}
+    {nextPhoto && <p>→ <a href={`/photos/${nextPhoto.id}`}>{nextPhoto.data.title}</a></p>}
+  </nav>
+</article>

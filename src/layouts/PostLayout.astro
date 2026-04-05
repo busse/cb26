@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import TagList from "../components/TagList.astro";
 import Ornament from "../components/Ornament.astro";
 import ProcessColophon from "../components/ProcessColophon.astro";
+import PaceLayersAnnotation from "../components/PaceLayersAnnotation.astro";
 
 interface Props {
   post: CollectionEntry<"posts">;
@@ -29,6 +30,8 @@ const ai = post.data.ai;
   </header>
 
   <slot />
+
+  <PaceLayersAnnotation layers={post.data.paceLayers} />
 
   {ai.assisted && (
     <ProcessColophon tools={ai.tools} role={ai.role} process={ai.process} />

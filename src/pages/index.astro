@@ -1,14 +1,33 @@
 ---
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TwoColumnLayout from "../layouts/TwoColumnLayout.astro";
 import PostCard from "../components/PostCard.astro";
+import PhotoCard from "../components/PhotoCard.astro";
+import GalleryGrid from "../components/GalleryGrid.astro";
 import Ornament from "../components/Ornament.astro";
 
 const posts = (await getCollection("posts"))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .filter((post) => !post.data.draft);
+
+const photos = (await getCollection("photos"))
+  .filter((photo) => !photo.data.draft);
+
+type FeedItem =
+  | { type: "post"; date: Date; entry: CollectionEntry<"posts"> }
+  | { type: "photo"; date: Date; entry: CollectionEntry<"photos"> };
+
+const feed: FeedItem[] = [
+  ...posts.map((p) => ({ type: "post" as const, date: p.data.date, entry: p })),
+  ...photos.map((p) => ({ type: "photo" as const, date: p.data.date, entry: p })),
+]
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
   .slice(0, 7);
+
+const recentPhotos = photos
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 6);
 ---
 
 <BaseLayout title="Home">
@@ -25,7 +44,22 @@ const posts = (await getCollection("posts"))
       </header>
       <Ornament />
       -->
-      {posts.map((post) => <PostCard post={post} />)}
+      {feed.map((item) =>
+        item.type === "post"
+          ? <PostCard post={item.entry} />
+          : <PhotoCard photo={item.entry} />
+      )}
     </section>
+
+    {recentPhotos.length > 0 && (
+      <section class="gallery-strip-section">
+        <Ornament glyph="☙" />
+        <h2>Recent Photos</h2>
+        <p class="meta-text">
+          From <a href="/gallery">the gallery</a>
+        </p>
+        <GalleryGrid photos={recentPhotos} compact />
+      </section>
+    )}
   </TwoColumnLayout>
 </BaseLayout>

@@ -14,6 +14,15 @@ ai:
   tools: ["Claude"]
   role: "drafting"
   process: "Iterative collaboration: AI conducted web research and drafted text across multiple rounds; human directed the analytical arc, posed framing questions, and shaped the argument."
+paceLayers:
+  - layer: governance
+    rationale: "The article's thesis is that four decades of institutional strategic planning — Brookings frameworks, CONPLANs, NSC records — shaped the political decision to strike. Slow-layer governance constrained and enabled the fast-layer political trigger."
+  - layer: infrastructure
+    rationale: "Traces the 15-year, $300M development arc of the GBU-57 from design through first combat use at Fordow, and the JSOC reconnaissance networks built since 2004. Physical and intelligence infrastructure as the slow foundation of the campaign."
+  - layer: commerce
+    rationale: "The insurance-driven Hormuz closure is a commerce-layer mechanism — P&I clubs cancelling war risk coverage collapsed shipping without a naval blockade. The $35K-drone vs. $2M-missile cost asymmetry is a commerce-layer argument about the sustainability of attrition."
+  - layer: nature
+    rationale: "Fordow buried under 260–300 feet of rock. The Strait of Hormuz as an immovable geographic chokepoint. Nature as the slowest layer, setting constraints that no amount of planning or technology can override."
 ---
 
 **A Point-in-Time Comparative Analysis of Pre-War Planning Documents and the Operational Sequence of Operation Epic Fury**

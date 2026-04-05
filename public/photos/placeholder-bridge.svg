@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#d4c5a9"/>
+  <rect x="100" y="400" width="80" height="400" fill="#8b7355"/>
+  <rect x="1020" y="400" width="80" height="400" fill="#8b7355"/>
+  <path d="M100 400 Q600 200 1100 400" stroke="#8b7355" stroke-width="12" fill="none"/>
+  <rect x="0" y="600" width="1200" height="200" fill="#6b8e7b"/>
+  <circle cx="900" cy="150" r="60" fill="#e8d5a3"/>
+  <text x="600" y="750" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#555">Placeholder: Bridge</text>
+</svg>

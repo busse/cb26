@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TwoColumnLayout from "../../layouts/TwoColumnLayout.astro";
 import TagList from "../../components/TagList.astro";
+import PaceLayersAnnotation from "../../components/PaceLayersAnnotation.astro";
 
 export async function getStaticPaths() {
   const talks = await getCollection("talks");
@@ -23,6 +24,7 @@ const { Content } = await render(talk);
       </p>
       <p>{talk.data.description}</p>
       <Content />
+      <PaceLayersAnnotation layers={talk.data.paceLayers} />
       {talk.data.tags?.length > 0 && <TagList tags={talk.data.tags} />}
     </article>
   </TwoColumnLayout>

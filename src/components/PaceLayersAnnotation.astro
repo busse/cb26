@@ -1,0 +1,38 @@
+---
+interface PaceLayerEntry {
+  layer: "fashion" | "commerce" | "infrastructure" | "governance" | "culture" | "nature";
+  rationale: string;
+}
+
+interface Props {
+  layers: PaceLayerEntry[];
+}
+
+const displayNames: Record<PaceLayerEntry["layer"], string> = {
+  fashion: "Fashion / Art",
+  commerce: "Commerce",
+  infrastructure: "Infrastructure",
+  governance: "Governance",
+  culture: "Culture",
+  nature: "Nature",
+};
+
+const { layers } = Astro.props;
+---
+
+{layers.length > 0 && (
+  <aside class="pace-layers-annotation" aria-label="Pace layers annotation">
+    <p class="section-label">Pace Layers</p>
+    <dl class="pace-layers-list">
+      {layers.map((entry) => (
+        <div class="pace-layer-entry">
+          <dt>{displayNames[entry.layer]}</dt>
+          <dd>{entry.rationale}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="pace-layers-context">
+      <a href="/approach">About this framework</a>
+    </p>
+  </aside>
+)}

@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TwoColumnLayout from "../layouts/TwoColumnLayout.astro";
+import GalleryGrid from "../components/GalleryGrid.astro";
+import Ornament from "../components/Ornament.astro";
+
+const photos = (await getCollection("photos"))
+  .filter((photo) => !photo.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Gallery">
+  <TwoColumnLayout>
+    <article>
+      <h1>Gallery</h1>
+      <p class="meta-text">Original images, old and new</p>
+      <p>
+        As a visual thinker, I use photography and image-making as a memory
+        journaling tool, as well as an important means of artistic and creative
+        expression.
+      </p>
+      <p>
+        Presented here is an evolving collection of original images, old and
+        new, that I feel illustrate parts of
+        <a href="/approach">the framework</a> and other concepts that catch
+        my eye.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      {photos.length > 0 ? (
+        <GalleryGrid photos={photos} />
+      ) : (
+        <p>No photos published yet.</p>
+      )}
+    </article>
+  </TwoColumnLayout>
+</BaseLayout>
