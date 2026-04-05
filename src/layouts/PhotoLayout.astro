@@ -19,16 +19,30 @@ const dateText = photo.data.date.toLocaleDateString("en-US", {
   timeZone: "UTC",
 });
 const ai = photo.data.ai;
+const images = photo.data.images;
+const isMulti = images.length > 0;
+const isComparison = images.length === 2;
 ---
 
 <article class="post-body">
-  <figure class="photo-detail-figure">
-    <img
-      src={photo.data.image}
-      alt={photo.data.alt}
-      class="photo-detail-image"
-    />
-  </figure>
+  {isMulti ? (
+    <div class={isComparison ? "photo-comparison" : "photo-series"}>
+      {images.map((img) => (
+        <figure class="photo-multi-figure">
+          <img src={img.src} alt={img.alt} class="photo-detail-image" />
+          {img.caption && <figcaption class="photo-caption">{img.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  ) : (
+    <figure class="photo-detail-figure">
+      <img
+        src={photo.data.image}
+        alt={photo.data.alt}
+        class="photo-detail-image"
+      />
+    </figure>
+  )}
 
   <header class="reading-header">
     <h1>{photo.data.title}</h1>

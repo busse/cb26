@@ -610,3 +610,41 @@
 .gallery-strip-section .meta-text {
   margin-bottom: var(--space-6);
 }
+
+/* Multi-image layouts */
+
+.photo-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.photo-series {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.photo-multi-figure {
+  margin: 0;
+}
+
+.photo-multi-figure .photo-detail-image {
+  max-width: 100%;
+}
+
+.photo-caption {
+  margin-top: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+
+@media (max-width: 48rem) {
+  .photo-comparison {
+    grid-template-columns: 1fr;
+  }
+}

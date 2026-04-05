@@ -65,6 +65,12 @@ const projects = defineCollection({
   }),
 });
 
+const photoImage = z.object({
+  src: z.string(),
+  alt: z.string(),
+  caption: z.string().optional(),
+});
+
 const photos = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/photos" }),
   schema: z.object({
@@ -72,6 +78,7 @@ const photos = defineCollection({
     date: z.coerce.date(),
     image: z.string(),
     alt: z.string(),
+    images: z.array(photoImage).default([]),
     location: z.string().optional(),
     description: z.string(),
     tags: z.array(z.string()).default([]),
