@@ -8,6 +8,12 @@ THUMB_DIR="public/photos/thumbs"
 CONTENT_DIR="src/content/photos"
 TODAY=$(date +%Y-%m-%d)
 
+META_CAMERA_MAKE="" META_CAMERA_MODEL="" META_DATE_TAKEN=""
+META_GPS_LAT="" META_GPS_LON="" META_FOCAL_LENGTH=""
+META_APERTURE="" META_ISO="" META_EXPOSURE=""
+META_WIDTH="" META_HEIGHT=""
+META_DATE_HINT="" META_LOCATION_HINT=""
+
 usage() {
   cat <<'EOF'
 Usage:
@@ -40,6 +46,80 @@ slug_from_filename() {
   base=$(basename "$1")
   base="${base%.*}"
   echo "$base" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//'
+}
+
+mdls_field() {
+  local key="$1" src="$2"
+  local raw
+  raw=$(mdls -raw -name "$key" "$src" 2>/dev/null) || return 0
+  [[ "$raw" == "(null)" ]] && return 0
+  echo "$raw"
+}
+
+extract_exif() {
+  local src="$1"
+  META_CAMERA_MAKE=$(mdls_field kMDItemAcquisitionMake "$src")
+  META_CAMERA_MODEL=$(mdls_field kMDItemAcquisitionModel "$src")
+  META_DATE_TAKEN=$(mdls_field kMDItemContentCreationDate "$src")
+  META_GPS_LAT=$(mdls_field kMDItemLatitude "$src")
+  META_GPS_LON=$(mdls_field kMDItemLongitude "$src")
+  META_FOCAL_LENGTH=$(mdls_field kMDItemFocalLength "$src")
+  META_APERTURE=$(mdls_field kMDItemFNumber "$src")
+  META_EXPOSURE=$(mdls_field kMDItemExposureTimeSeconds "$src")
+  META_WIDTH=$(mdls_field kMDItemPixelWidth "$src")
+  META_HEIGHT=$(mdls_field kMDItemPixelHeight "$src")
+  # ISO is stored as an array in Spotlight; extract the first numeric value
+  META_ISO=$(mdls -name kMDItemISOSpeed "$src" 2>/dev/null \
+    | awk '/[0-9]/{gsub(/[^0-9.]/,"",$1); if($1+0>0) print $1; exit}') || true
+}
+
+parse_filename() {
+  local slug="$1"
+  META_DATE_HINT=""
+  META_LOCATION_HINT=""
+  if [[ "$slug" =~ ^([0-9]{2})([0-9]{2})-(.+) ]]; then
+    META_DATE_HINT="20${BASH_REMATCH[1]}-${BASH_REMATCH[2]}"
+    local rest="${BASH_REMATCH[3]}"
+    rest=$(echo "$rest" | sed 's/-[0-9]*$//')
+    META_LOCATION_HINT=$(echo "$rest" | sed 's/-/ /g' \
+      | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1')
+  fi
+}
+
+format_metadata_block() {
+  local slug="$1"
+  echo ""
+  echo "<!-- EXTRACTED METADATA"
+  echo "filename: ${slug}"
+  [[ -n "$META_DATE_HINT" ]] && echo "date_hint: ${META_DATE_HINT} (from filename)"
+  [[ -n "$META_LOCATION_HINT" ]] && echo "location_hint: ${META_LOCATION_HINT} (from filename)"
+  [[ -n "$META_CAMERA_MAKE$META_CAMERA_MODEL" ]] && echo "camera: ${META_CAMERA_MAKE} ${META_CAMERA_MODEL}"
+  [[ -n "$META_DATE_TAKEN" ]] && echo "date_taken: ${META_DATE_TAKEN}"
+  [[ -n "$META_GPS_LAT" && -n "$META_GPS_LON" ]] && echo "gps: ${META_GPS_LAT}, ${META_GPS_LON}"
+  [[ -n "$META_FOCAL_LENGTH" ]] && echo "focal_length: ${META_FOCAL_LENGTH}mm"
+  [[ -n "$META_APERTURE" ]] && echo "aperture: f/${META_APERTURE}"
+  [[ -n "$META_ISO" ]] && echo "iso: ${META_ISO}"
+  [[ -n "$META_EXPOSURE" ]] && echo "exposure: ${META_EXPOSURE}s"
+  [[ -n "$META_WIDTH" && -n "$META_HEIGHT" ]] && echo "dimensions: ${META_WIDTH}x${META_HEIGHT}"
+  echo "-->"
+}
+
+print_metadata_summary() {
+  local slug="$1"
+  echo ""
+  echo "Extracted metadata for ${slug}:"
+  echo "  ─────────────────────────────────"
+  [[ -n "$META_DATE_HINT" ]] && echo "  Date (filename):   ${META_DATE_HINT}"
+  [[ -n "$META_LOCATION_HINT" ]] && echo "  Location (filename): ${META_LOCATION_HINT}"
+  [[ -n "$META_CAMERA_MAKE$META_CAMERA_MODEL" ]] && echo "  Camera:            ${META_CAMERA_MAKE} ${META_CAMERA_MODEL}"
+  [[ -n "$META_DATE_TAKEN" ]] && echo "  Date taken:        ${META_DATE_TAKEN}"
+  [[ -n "$META_GPS_LAT" && -n "$META_GPS_LON" ]] && echo "  GPS:               ${META_GPS_LAT}, ${META_GPS_LON}"
+  [[ -n "$META_FOCAL_LENGTH" ]] && echo "  Focal length:      ${META_FOCAL_LENGTH}mm"
+  [[ -n "$META_APERTURE" ]] && echo "  Aperture:          f/${META_APERTURE}"
+  [[ -n "$META_ISO" ]] && echo "  ISO:               ${META_ISO}"
+  [[ -n "$META_EXPOSURE" ]] && echo "  Exposure:          ${META_EXPOSURE}s"
+  [[ -n "$META_WIDTH" && -n "$META_HEIGHT" ]] && echo "  Dimensions:        ${META_WIDTH}x${META_HEIGHT}"
+  echo "  ─────────────────────────────────"
 }
 
 process_image() {
@@ -118,6 +198,7 @@ paceLayers: []
 TODO: Editorial analysis goes here.
 FRONTMATTER
 
+  format_metadata_block "$slug" >> "$md_file"
   echo "  → ${md_file} (draft)"
 }
 
@@ -161,6 +242,7 @@ paceLayers: []
 TODO: Editorial analysis comparing these images goes here.
 FRONTMATTER
 
+  format_metadata_block "$slug" >> "$md_file"
   echo "  → ${md_file} (draft, multi-image)"
 }
 
@@ -205,6 +287,10 @@ if [[ "$MULTI" == false ]]; then
   [[ -z "$SLUG" ]] && SLUG=$(slug_from_filename "$src")
 
   echo "Processing single image: $src → $SLUG"
+
+  extract_exif "$src"
+  parse_filename "$SLUG"
+
   dest="${PHOTO_DIR}/${SLUG}.jpg"
   thumb="${THUMB_DIR}/${SLUG}.jpg"
 
@@ -213,6 +299,8 @@ if [[ "$MULTI" == false ]]; then
   echo ""
   echo "Scaffolding content..."
   scaffold_single "$SLUG" "/photos/${SLUG}.jpg"
+
+  print_metadata_summary "$SLUG"
 
   echo ""
   echo "Done! Edit ${CONTENT_DIR}/${SLUG}.md to add title, description, and editorial text."
@@ -233,6 +321,9 @@ fi
 
 echo "Processing multi-image set: $SLUG (${#FILES[@]} images)"
 
+extract_exif "${FILES[0]}"
+parse_filename "$SLUG"
+
 image_paths=()
 i=1
 for src in "${FILES[@]}"; do
@@ -249,6 +340,8 @@ done
 echo ""
 echo "Scaffolding content..."
 scaffold_multi "$SLUG" "${image_paths[@]}"
+
+print_metadata_summary "$SLUG"
 
 echo ""
 echo "Done! Edit ${CONTENT_DIR}/${SLUG}.md to add title, description, and editorial text."
