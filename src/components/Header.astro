@@ -1,5 +1,5 @@
 ---
-import { primaryNav } from "../data/site";
+import { primaryNav, secondaryNav } from "../data/site";
 ---
 
 <header class="site-header">
@@ -10,6 +10,12 @@ import { primaryNav } from "../data/site";
   <nav class="top-nav" aria-label="Primary">
     {
       primaryNav.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))
+    }
+    <span class="nav-separator" aria-hidden="true">|</span>
+    {
+      secondaryNav.map((item) => (
         <a href={item.href}>{item.label}</a>
       ))
     }

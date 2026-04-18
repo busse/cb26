@@ -17,11 +17,15 @@ export const socialLinks = [
 
 export const primaryNav = [
   { label: "Home", href: "/" },
-  { label: "Approach", href: "/approach" },
   { label: "Gallery", href: "/gallery" },
   { label: "Speaking", href: "/speaking" },
   { label: "Archive", href: "/archive" },
   { label: "About", href: "/about" },
+];
+
+export const secondaryNav = [
+  { label: "Approach", href: "/approach" },
+  { label: "Gnomes", href: "/gnomes" },
 ];
 
 export const visionariesCampaign = {

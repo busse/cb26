@@ -1,0 +1,257 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TwoColumnLayout from "../layouts/TwoColumnLayout.astro";
+import Ornament from "../components/Ornament.astro";
+---
+
+<BaseLayout title="Gnomes" description="How autonomous AI agents help maintain this site's content operations.">
+  <TwoColumnLayout>
+    <article>
+      <h1>Gnomes</h1>
+      <p class="meta-text">How AI agents help maintain this site</p>
+      <p>
+        This site uses autonomous AI agent sessions&mdash;called
+        <strong>Gnomes</strong>&mdash;to assist with content operations.
+        Each Gnome is a Claude-powered session that reads the repository,
+        understands its structure, and performs a specific job within
+        defined boundaries. This page documents the system as part of the
+        site's commitment to <a href="/colophon">transparency about AI
+        involvement</a>.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>What Is a Gnome?</h2>
+      <p>
+        A Gnome is an autonomous AI agent session with two defining
+        properties: a <strong>Workplace</strong> and a <strong>Job</strong>.
+      </p>
+      <p>
+        The Workplace is this repository. A reference document called
+        <code>GNOMES.md</code> describes the repo's structure, content
+        schemas, conventions, and boundaries so that each Gnome can
+        orient itself without human hand-holding.
+      </p>
+      <p>
+        The Job is a specific content task assigned by a human. One Gnome
+        might annotate posts with pace layer classifications. Another might
+        analyze photographs and write alt text. Each Gnome has a handle
+        like <code>GNOME_PACER</code> or <code>GNOME_IMGSEE</code> that
+        appears in its commit messages and any notes it leaves in the
+        codebase.
+      </p>
+      <p>
+        Gnomes are typically Claude Cowork Task sessions&mdash;long-running
+        Claude instances that can read files, edit content, and commit
+        changes. The specific architecture of a Gnome may vary, but the
+        pattern is always the same: read the Workplace, confirm
+        understanding, then do the Job.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Tooling Ecosystem</h2>
+      <p>
+        Three Claude-powered tools interact with this repository, each
+        with a different relationship to the content:
+      </p>
+      <div class="mermaid-container">
+        <pre class="mermaid">
+graph TB
+    Human["Chris Busse"]
+
+    subgraph tools ["Authoring Tools"]
+        Cursor["Cursor IDE"]
+        ClaudeCode["Claude Code"]
+        Cowork["Claude Cowork Tasks"]
+    end
+
+    subgraph repo ["Repository — cb26"]
+        GNOMES["GNOMES.md"]
+        CLAUDE["CLAUDE.md"]
+        Content["src/content/"]
+        Scripts["scripts/"]
+    end
+
+    subgraph deploy ["Deployment"]
+        Astro["Astro Build"]
+        CF["Cloudflare Workers"]
+        Site["chrisbusse.com"]
+    end
+
+    Human --> Cursor
+    Human --> ClaudeCode
+    Human --> Cowork
+    Cowork -->|"reads"| GNOMES
+    Cursor -->|"maintains"| GNOMES
+    ClaudeCode -->|"maintains"| GNOMES
+    Cowork -->|"edits"| Content
+    Cursor --> Content
+    ClaudeCode --> Content
+    repo --> Astro --> CF --> Site
+        </pre>
+      </div>
+      <p>
+        <strong>Cursor</strong> and <strong>Claude Code</strong> are
+        interactive sessions where a human collaborates with Claude in
+        real time. These sessions have full access to the repo and are
+        responsible for maintaining structural files like
+        <code>GNOMES.md</code> and the content schemas.
+      </p>
+      <p>
+        <strong>Claude Cowork Tasks</strong> are the Gnome sessions.
+        They run autonomously, reading <code>GNOMES.md</code> for
+        orientation and confining their edits to content files within
+        their stated job scope.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Gnome Lifecycle</h2>
+      <p>
+        Every Gnome session follows the same sequence:
+      </p>
+      <div class="mermaid-container">
+        <pre class="mermaid">
+graph TD
+    subgraph setup ["Setup"]
+        direction LR
+        Define["Human defines Job"] --> Launch["Launch Cowork session"] --> Read["Gnome reads GNOMES.md"]
+    end
+
+    subgraph execution ["Execution"]
+        direction LR
+        Confirm["Confirms understanding"] --> Work["Performs Job"]
+    end
+
+    subgraph delivery ["Delivery"]
+        direction LR
+        Commit["Commits with handle prefix"] --> Report["Summarizes work"]
+    end
+
+    Read --> Confirm
+    Work --> Commit
+        </pre>
+      </div>
+      <p>
+        The human defines the job and launches a Cowork session with a
+        standardized prompt that identifies the Gnome by handle. The
+        Gnome reads the Workplace reference, confirms its understanding,
+        then proceeds to do the work&mdash;committing incrementally with
+        messages prefixed by its handle (e.g.,
+        <code>GNOME_PACER: add pace layer annotations to 3 posts</code>).
+        When finished, it produces a summary of what it accomplished.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Content Architecture</h2>
+      <p>
+        The site has three content collections&mdash;posts, photos, and
+        talks&mdash;that share a common schema. Gnomes operate on
+        specific fields within these collections based on their job:
+      </p>
+      <div class="mermaid-container">
+        <pre class="mermaid">
+graph TB
+    subgraph schema ["Shared Schema — baseMeta"]
+        Title["title, date, description"]
+        Meta["tags, draft, category"]
+        AI["ai metadata"]
+        PL["paceLayers"]
+    end
+
+    subgraph collections ["Content Collections"]
+        Posts["posts/"]
+        Photos["photos/"]
+        Talks["talks/"]
+    end
+
+    schema --> Posts
+    schema --> Photos
+    schema --> Talks
+
+    PACER["GNOME_PACER"] -->|"paceLayers"| collections
+    IMGSEE["GNOME_IMGSEE"] -->|"alt, description"| Photos
+        </pre>
+      </div>
+      <p>
+        The shared schema includes fields for AI metadata&mdash;whether
+        AI assisted in creating a piece, which tools were used, and in
+        what role. When a Gnome modifies content, this metadata is
+        updated to reflect the AI involvement, keeping the provenance
+        chain intact.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Boundaries</h2>
+      <p>
+        Gnomes operate under a trust-but-verify model with explicit
+        boundaries. They may edit content frontmatter, update markdown
+        body text, and create new content files following established
+        patterns. They may not modify schemas, layouts, components,
+        pages, or configuration files. They cannot deploy the site,
+        delete files, or install dependencies. Schema changes,
+        structural decisions, and deployment remain under human control.
+      </p>
+      <p>
+        When a Gnome encounters ambiguity&mdash;a piece of content where
+        the right classification is genuinely unclear, for instance&mdash;it
+        leaves a <code>TODO</code> marker with its handle rather than
+        guessing. These markers surface during human review and ensure
+        that judgment calls stay with a human.
+      </p>
+
+      <Ornament glyph="☙" />
+
+      <h2>Transparency</h2>
+      <p>
+        Every change a Gnome makes is tracked through Git commit history
+        with the Gnome's handle in the commit message. Content modified
+        by a Gnome carries <code>ai.assisted: true</code> in its
+        frontmatter metadata, which is visible in the process colophon
+        at the end of each article. The combination of commit
+        attribution and content metadata means that Gnome contributions
+        are always traceable&mdash;both in the source and on the
+        published page.
+      </p>
+      <p>
+        This system is an extension of the editorial principles described
+        on the <a href="/colophon">Colophon</a> page: AI tools extend
+        reach, but accountability remains with the human.
+      </p>
+    </article>
+  </TwoColumnLayout>
+</BaseLayout>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script is:inline>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'neutral',
+    themeVariables: {
+      fontFamily: '"Roboto Mono", "SFMono-Regular", Menlo, monospace',
+      fontSize: '14px',
+    },
+    flowchart: {
+      useMaxWidth: true,
+      htmlLabels: true,
+      curve: 'basis',
+    },
+  });
+</script>
+
+<style>
+  .mermaid-container {
+    margin: var(--space-6) 0;
+    overflow-x: auto;
+  }
+
+  .mermaid-container pre.mermaid {
+    border: 1px solid var(--color-rule);
+    padding: var(--space-4);
+    background: #fafafa;
+    overflow-x: auto;
+  }
+</style>
